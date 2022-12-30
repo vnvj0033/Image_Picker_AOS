@@ -9,6 +9,7 @@
 /.idea/assetWizardSettings.xml
 /.idea/git_toolbox_prj.xml
 /.idea/vcs.xml
+/.idea/gradle.xml
 .DS_Store
 /build
 /captures

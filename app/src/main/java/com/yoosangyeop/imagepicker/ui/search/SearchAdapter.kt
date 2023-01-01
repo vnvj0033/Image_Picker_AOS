@@ -61,6 +61,8 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_off)
             }
 
+            dateTime.text = item.datetime
+
             click?.invoke(item)
         }
 

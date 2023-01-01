@@ -10,6 +10,7 @@
 /.idea/git_toolbox_prj.xml
 /.idea/vcs.xml
 /.idea/gradle.xml
+/.idea/deploymentTargetDropDown.xml
 .DS_Store
 /build
 /captures

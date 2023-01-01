@@ -1,5 +1,6 @@
 package com.yoosangyeop.imagepicker.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 data class Meta(
@@ -12,13 +13,14 @@ data class SearchVClip(
     val meta: Meta,
     val documents: List<Document>
 ) {
+    @Keep
     data class Document(
         val title: String,
+        val url: String,
+        override val datetime: String,
         val play_time: Int,
         @SerializedName("thumbnail")
         override val thumbnail_url: String,
-        val url: String,
-        override val datetime: String,
         val author: String
     ) : SearchItem
 }

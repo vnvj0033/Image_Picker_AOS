@@ -6,6 +6,7 @@ import com.yoosangyeop.imagepicker.data.api.SearchService
 import com.yoosangyeop.imagepicker.data.model.SearchImage
 import com.yoosangyeop.imagepicker.data.model.SearchItem
 import com.yoosangyeop.imagepicker.data.model.SearchVClip
+import com.yoosangyeop.imagepicker.util.DateUtil.sortByNewest
 
 class SearchItemDataSource(
     private val searchService: SearchService,
@@ -14,76 +15,76 @@ class SearchItemDataSource(
 
     companion object {
         private const val DEFAULT_START = 1
-        const val DEFAULT_DISPLAY = 20
+        const val DEFAULT_DISPLAY = 60
     }
 
     override fun getRefreshKey(state: PagingState<Int, SearchItem>): Int? {
         return state.anchorPosition?.let {
             val closestPageToPosition = state.closestPageToPosition(it)
-            closestPageToPosition?.prevKey?.plus(DEFAULT_DISPLAY)
-                ?: closestPageToPosition?.nextKey?.minus(DEFAULT_DISPLAY)
+            closestPageToPosition?.prevKey?.plus(1)
+                ?: closestPageToPosition?.nextKey?.minus(1)
         }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> {
         val start = params.key ?: DEFAULT_START
 
-        return try {
+        val images = runCatching { loadImages(params.loadSize, start) }.getOrNull() ?: listOf()
+        val clips = runCatching { loadClips(params.loadSize, start) }.getOrNull() ?: listOf()
 
-            val images = loadImages(params.loadSize, start)
-            val clips = loadClips(params.loadSize, start)
+        val items = images + clips
+        items.sortByNewest()
 
-            val nextKey = if (images.isEmpty() && clips.isEmpty()) {
+        val nextKey =
+            if (items.isEmpty()) {
                 null
             } else {
                 start + 1
             }
 
-            val prevKey = if (start == DEFAULT_START) {
+        val prevKey =
+            if (start == DEFAULT_START) {
                 null
             } else {
                 start - 1
             }
 
-            val items = images + clips
-            // TODO: itmes 를 datetime 기준을 정렬
-
-            LoadResult.Page(items, prevKey, nextKey)
-        } catch (exception: Exception) {
-            LoadResult.Error(exception)
-        }
+        return LoadResult.Page(items, prevKey, nextKey)
     }
 
 
-    var endPageOfImages = Int.MAX_VALUE
-    var endPageOfClips = Int.MAX_VALUE
+    private var isEndPageOfImages = false
+    private var isEndPageOfClips = false
     private suspend fun loadImages(loadSize: Int, start: Int): List<SearchImage.Document> {
-        if (endPageOfImages > start) return listOf()
+        if (isEndPageOfImages) return listOf()
 
         val images = searchService.getImages(
             query = query,
+            sort = "recency",
             size = loadSize,
             page = start
         )
 
-        if (images.meta.is_end) {
-            endPageOfImages = start
+        if (images.meta.is_end || start > 50) {
+            isEndPageOfImages = true
         }
 
         return images.documents
     }
 
     private suspend fun loadClips(loadSize: Int, start: Int): List<SearchVClip.Document> {
-        if (endPageOfClips > start) return listOf()
+        if (isEndPageOfClips) return listOf()
         val clips = searchService.getVClips(
             query = query,
-            page = loadSize,
-            size = start,
+            sort = "recency",
+            size = loadSize,
+            page = start,
         )
 
-        if (clips.meta.is_end) {
-            endPageOfClips = start
+        if (clips.meta.is_end || start > 15) {
+            isEndPageOfClips = true
         }
+
         return clips.documents
     }
 

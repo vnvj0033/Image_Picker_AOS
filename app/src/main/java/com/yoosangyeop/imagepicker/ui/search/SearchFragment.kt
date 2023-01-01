@@ -34,17 +34,21 @@ class SearchFragment : Fragment() {
 
         val searchAdapter = SearchAdapter()
 
+        searchAdapter.click = { url ->
+            viewModel.clickFavorite(url)
+        }
+
         itemRecyclerView.run {
-            val spanCount = 2
+            val spanCount = 3
 
             addItemDecoration(SearchItemDecoration(spanCount, 8, true))
             layoutManager = GridLayoutManager(context, spanCount)
+
             adapter = searchAdapter
         }
 
         searchEditText.setOnFocusChangeListener { view, b ->
             // TODO : 포커스 내려갈때 기록 숨기기 필요
-            Log.d("testsyyooB", b.toString())
             if (b) {
                 historyRecyclerView.isVisible
             } else {
@@ -54,6 +58,7 @@ class SearchFragment : Fragment() {
 
 
         searchButton.setOnClickListener {
+            // 검색 클릭
             val query = searchEditText.text ?: ""
             if (query.isNotEmpty()) {
                 viewModel.search(query.toString())
@@ -75,7 +80,15 @@ class SearchFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenStarted {
+            viewModel.favorite.collect { favorites->
+                // 즐겨찾기 갱신
+                searchAdapter.updateFavorites(favorites)
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
             viewModel.searchItem.collectLatest { items ->
+                // 검색 결과 갱신
                 searchAdapter.submitData(items)
             }
         }

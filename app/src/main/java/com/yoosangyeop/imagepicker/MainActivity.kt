@@ -31,5 +31,5 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-private const val TAB_NAME_SEARCH = "선택하기"
-private const val TAB_NAME_GALLERY = "픽 리스트"
+private const val TAB_NAME_SEARCH = "검색 결과"
+private const val TAB_NAME_GALLERY = "내 보관함"

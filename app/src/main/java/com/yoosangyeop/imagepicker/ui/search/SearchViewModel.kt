@@ -23,6 +23,9 @@ class SearchViewModel @Inject constructor(
     private val _searchHistory = MutableSharedFlow<List<String>>(replay = 1)
     val searchHistory: SharedFlow<List<String>> = _searchHistory.asSharedFlow()
 
+    private val _favorite = MutableSharedFlow<List<String>>(replay = 1)
+    val favorite: SharedFlow<List<String>> = _favorite.asSharedFlow()
+
     private val _query = savedStateHandle.getMutableStateFlow(KEY_NAME_QUERY, "")
     val query: StateFlow<String>
         get() = _query.asStateFlow()
@@ -49,5 +52,26 @@ class SearchViewModel @Inject constructor(
     fun search(searchQuery: String) {
         _query.value = searchQuery
         addHistory()
+
+        viewModelScope.launch {
+            searchRepository.favorite.collect { favorites ->
+                _favorite.emit(favorites)
+            }
+        }
+    }
+
+    fun clickFavorite(url: String) {
+        viewModelScope.launch {
+            searchRepository.favorite.collect { favorite ->
+                if (favorite.contains(url)) {
+                    searchRepository.removeFavorite(url)
+                } else {
+                    searchRepository.addFavorite(url)
+                }
+                searchRepository.favorite.collect { newFavorite ->
+                    _favorite.emit(newFavorite)
+                }
+            }
+        }
     }
 }

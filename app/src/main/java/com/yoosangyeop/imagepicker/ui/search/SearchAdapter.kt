@@ -7,11 +7,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yoosangyeop.imagepicker.R
+import com.yoosangyeop.imagepicker.data.model.SearchImage
 import com.yoosangyeop.imagepicker.data.model.SearchItem
+import com.yoosangyeop.imagepicker.data.model.SearchVClip
 import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
+import com.yoosangyeop.imagepicker.util.DateUtil
+
 
 class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
-    var click: ((SearchItem) -> Unit)? = null
+    var click: ((String) -> Unit)? = null
+    private var favorites: List<String> = listOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -19,52 +24,83 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
     ): SearchItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemSearchBinding.inflate(layoutInflater, parent, false)
-        return SearchItemViewHolder(click, binding)
+        return SearchItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SearchItemViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = getItem(position) ?: return
         holder.bind(item)
     }
 
-    companion object {
-        val comparator = object : DiffUtil.ItemCallback<SearchItem>() {
-            override fun areItemsTheSame(oldItem: SearchItem, newItem: SearchItem): Boolean {
-                return oldItem.thumbnail_url == newItem.thumbnail_url
-            }
+    fun updateFavorites(newFavorites: List<String>) {
+        val favorite = if (newFavorites.size > favorites.size) {
+            newFavorites - favorites.toSet()
+        } else {
+            favorites - newFavorites.toSet()
+        }
 
-            override fun areContentsTheSame(oldItem: SearchItem, newItem: SearchItem): Boolean {
-                return oldItem.thumbnail_url == newItem.thumbnail_url
-            }
+        favorites = newFavorites
 
+        for (i in 0 until itemCount) {
+            val item = getItem(i) ?: continue
+
+            if (item.thumbnail_url == favorite.first()) {
+                notifyItemChanged(i)
+                break
+            }
         }
     }
 
-    class SearchItemViewHolder(
-        private val click: ((SearchItem) -> Unit)?,
+    inner class SearchItemViewHolder(
         private val binding: ItemSearchBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SearchItem?) = with(binding) {
-            item ?: return@with
+
+        fun bind(item: SearchItem) = with(binding) {
 
             Glide.with(root.context)
                 .load(item.thumbnail_url)
                 .into(thumbnail)
 
-            val isFavorite = false
-            // TODO: isFavorite 구현
+            binding.favoriteIcon.setOnClickListener {
+                click?.invoke(item.thumbnail_url)
+            }
+
+            val isFavorite = favorites.contains(item.thumbnail_url)
 
             if (isFavorite) {
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_on)
             } else {
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_off)
             }
+            
+            if (item is SearchImage.Document) {
+                typeIcon.setImageResource(R.drawable.ic_image)
+            } else if (item is SearchVClip.Document) {
+                typeIcon.setImageResource(R.drawable.ic_video)
+            }
 
-            dateTime.text = item.datetime
+            val date = DateUtil.changeDatePattern(
+                item.datetime,
+                "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+                "yyyy.MM.dd\nHH:mm:ss"
+            )
+            dateTime.text = date
 
-            click?.invoke(item)
         }
 
     }
+}
+
+private val comparator = object : DiffUtil.ItemCallback<SearchItem>() {
+    override fun areItemsTheSame(oldItem: SearchItem, newItem: SearchItem): Boolean {
+        return oldItem.thumbnail_url == newItem.thumbnail_url
+    }
+
+    override fun areContentsTheSame(oldItem: SearchItem, newItem: SearchItem): Boolean {
+        return oldItem.thumbnail_url == newItem.thumbnail_url
+                && oldItem.datetime == newItem.datetime
+
+    }
+
 }

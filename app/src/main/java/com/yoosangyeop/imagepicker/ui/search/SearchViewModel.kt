@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.yoosangyeop.imagepicker.domain.SearchRepository
-import com.yoosangyeop.imagepicker.getMutableStateFlow
+import com.yoosangyeop.imagepicker.util.getMutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*

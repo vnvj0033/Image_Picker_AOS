@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker
+package com.yoosangyeop.imagepicker.util
 
 import androidx.lifecycle.SavedStateHandle
 import kotlinx.coroutines.flow.StateFlow

@@ -17,5 +17,5 @@ class SavableMutableStateFlow<T>(
     fun asStateFlow(): StateFlow<T> = state
 }
 
-fun <T> SavedStateHandle.getMutableStateFlow(key: String, initialValue: T) =
+fun <T> SavedStateHandle.getSavableMutableStateFlow(key: String, initialValue: T) =
     SavableMutableStateFlow(this, key, initialValue)

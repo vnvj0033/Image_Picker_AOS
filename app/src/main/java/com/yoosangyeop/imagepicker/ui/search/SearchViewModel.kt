@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.yoosangyeop.imagepicker.domain.SearchRepository
-import com.yoosangyeop.imagepicker.util.getMutableStateFlow
+import com.yoosangyeop.imagepicker.util.getSavableMutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -26,7 +26,7 @@ class SearchViewModel @Inject constructor(
     private val _favorite = MutableSharedFlow<List<String>>(replay = 1)
     val favorite: SharedFlow<List<String>> = _favorite.asSharedFlow()
 
-    private val _query = savedStateHandle.getMutableStateFlow(KEY_NAME_QUERY, "")
+    private val _query = savedStateHandle.getSavableMutableStateFlow(KEY_NAME_QUERY, "")
     val query: StateFlow<String>
         get() = _query.asStateFlow()
 
@@ -35,14 +35,22 @@ class SearchViewModel @Inject constructor(
         searchRepository.loadSearchItem(_query.value)
     }.cachedIn(viewModelScope)
 
-
-
     fun search(searchQuery: String) {
         _query.value = searchQuery
         addHistory()
 
         viewModelScope.launch {
             emitFavorite()
+        }
+    }
+
+    private fun addHistory() {
+        val addQuery = _query.value
+        viewModelScope.launch {
+            searchRepository.removeHistory(addQuery)
+            searchRepository.addHistory(addQuery)
+
+            emitHistory()
         }
     }
 
@@ -79,14 +87,4 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    private fun addHistory() {
-        val addQuery = _query.value
-        viewModelScope.launch {
-            searchRepository.removeHistory(addQuery)
-            searchRepository.addHistory(addQuery)
-
-            emitHistory()
-        }
-
-    }
 }

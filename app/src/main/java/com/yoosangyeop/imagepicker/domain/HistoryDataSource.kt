@@ -1,21 +1,20 @@
 package com.yoosangyeop.imagepicker.domain
 
-import com.yoosangyeop.imagepicker.data.preferences.PreferenceUtil
+import com.yoosangyeop.imagepicker.data.preferences.PREFERENCE_KEY_NAME_HISTORY_LIST
+import com.yoosangyeop.imagepicker.data.preferences.PreferencesUtil
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
-private const val PREFERENCE_KEY_NAME_HISTORY_LIST = "PREFERENCE_KEY_NAME_HISTORY_LIST"
-
 class HistoryDataSource @Inject constructor(
-    private val preferenceUtil: PreferenceUtil
+    private val preferencesUtil: PreferencesUtil
 ) {
 
     fun loadHistory(): Flow<List<String>> =
-        flowOf(preferenceUtil.getStringList(PREFERENCE_KEY_NAME_HISTORY_LIST))
+        flowOf(preferencesUtil.getStringList(PREFERENCE_KEY_NAME_HISTORY_LIST))
 
     fun setHistory(history: List<String>) {
-        preferenceUtil.setStringList(PREFERENCE_KEY_NAME_HISTORY_LIST, history)
+        preferencesUtil.setStringList(PREFERENCE_KEY_NAME_HISTORY_LIST, history)
     }
 
 }

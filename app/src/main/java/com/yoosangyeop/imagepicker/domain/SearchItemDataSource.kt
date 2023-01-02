@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.yoosangyeop.imagepicker.data.api.SearchService
 import com.yoosangyeop.imagepicker.data.model.SearchImage
 import com.yoosangyeop.imagepicker.data.model.SearchItem
-import com.yoosangyeop.imagepicker.data.model.SearchVClip
+import com.yoosangyeop.imagepicker.data.model.SearchClip
 import com.yoosangyeop.imagepicker.util.DateUtil.sortByNewest
 
 class SearchItemDataSource(
@@ -72,8 +72,9 @@ class SearchItemDataSource(
         return images.documents
     }
 
-    private suspend fun loadClips(loadSize: Int, start: Int): List<SearchVClip.Document> {
+    private suspend fun loadClips(loadSize: Int, start: Int): List<SearchClip.Document> {
         if (isEndPageOfClips) return listOf()
+
         val clips = searchService.getVClips(
             query = query,
             sort = "recency",

@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import org.json.JSONArray
 
 
-class PreferenceUtil(context: Context, name: String) {
+class PreferencesUtil(context: Context, name: String) {
     private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
     fun getString(key: String, defValue: String): String = prefs.getString(key, defValue).toString()
@@ -21,7 +21,7 @@ class PreferenceUtil(context: Context, name: String) {
             val jsonArray = JSONArray(string)
 
             for (i in 0 until jsonArray.length()) {
-                val url: String = jsonArray.optString(i)
+                val url = jsonArray.optString(i)
                 list.add(url)
             }
         }

@@ -21,7 +21,6 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
         if (position == RecyclerView.NO_POSITION) return
 
         holder.bind(history[position])
-
     }
 
     override fun getItemCount(): Int = history.size

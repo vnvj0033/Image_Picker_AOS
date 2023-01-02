@@ -1,5 +1,6 @@
 package com.yoosangyeop.imagepicker.ui.gallery
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isGone
@@ -11,7 +12,7 @@ import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     private var favoriteUrls: List<String> = listOf()
-    var removeFavorite: ((String) -> Unit)? = null
+    var clickRemove: ((String) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
@@ -29,6 +30,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
     override fun getItemCount(): Int = favoriteUrls.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateFavorites(newFavorites: List<String>) {
         favoriteUrls = newFavorites
         notifyDataSetChanged()
@@ -47,9 +49,8 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
             favoriteIcon.setImageResource(R.drawable.ic_favorite_on)
 
             favoriteIcon.setOnClickListener {
-                removeFavorite?.invoke(favoriteUrl)
+                clickRemove?.invoke(favoriteUrl)
             }
-
         }
 
     }

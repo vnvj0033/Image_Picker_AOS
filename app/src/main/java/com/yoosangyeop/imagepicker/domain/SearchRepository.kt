@@ -16,6 +16,9 @@ class SearchRepositoryImpl @Inject constructor(
     override val searchHistory: Flow<List<String>>
         get() = historyDataSource.loadHistory()
 
+    override val favorite: Flow<List<String>>
+        get() = favoriteDataSource.loadFavorites()
+
     override suspend fun addHistory(query: String) {
         searchHistory.collect { history ->
             val list = history + query
@@ -29,9 +32,6 @@ class SearchRepositoryImpl @Inject constructor(
             historyDataSource.setHistory(list)
         }
     }
-
-    override val favorite: Flow<List<String>>
-        get() = favoriteDataSource.loadFavorites()
 
     override suspend fun addFavorite(url: String) {
         favorite.collect { favorite ->

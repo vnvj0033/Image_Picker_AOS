@@ -106,7 +106,6 @@ class SearchFragment : Fragment() {
             }
         }
 
-
         searchEditText.setOnEditorActionListener { _, i, _ ->
             if (i == EditorInfo.IME_ACTION_DONE) {
                 searchButton.callOnClick()
@@ -121,7 +120,6 @@ class SearchFragment : Fragment() {
         launchWhenStarted {
             viewModel.query.collect { query ->
                 Log.d("testsyyoo", "query : $query")
-                // TODO: query 활용법 찾기(기능없음)
             }
         }
 
@@ -142,7 +140,6 @@ class SearchFragment : Fragment() {
             viewModel.searchItem.collectLatest { items ->
                 // 검색 결과 갱신
                 searchAdapter.submitData(items)
-                binding.itemRecyclerView.smoothScrollToPosition(0)
             }
         }
     }

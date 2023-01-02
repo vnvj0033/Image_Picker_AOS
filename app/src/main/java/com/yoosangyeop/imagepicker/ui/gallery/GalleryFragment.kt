@@ -47,7 +47,7 @@ class GalleryFragment : Fragment() {
 
         }
 
-        favoriteAdapter.removeFavorite =  { url ->
+        favoriteAdapter.clickRemove =  { url ->
             viewModel.clickFavorite(url)
         }
 

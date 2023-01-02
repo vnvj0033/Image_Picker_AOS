@@ -15,7 +15,7 @@ class SearchItemDataSource(
 
     companion object {
         private const val DEFAULT_START = 1
-        const val DEFAULT_DISPLAY = 60
+        const val DEFAULT_DISPLAY = 30
     }
 
     override fun getRefreshKey(state: PagingState<Int, SearchItem>): Int? {

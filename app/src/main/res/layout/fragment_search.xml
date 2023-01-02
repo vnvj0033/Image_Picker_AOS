@@ -11,7 +11,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Search"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="검색"
             android:importantForAutofill="no"
             android:inputType="text"
             app:layout_constraintEnd_toStartOf="@+id/searchButton"
@@ -29,15 +31,6 @@
             app:layout_constraintTop_toTopOf="@+id/searchEditText" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/historyRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:maxHeight="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
-
-        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -45,5 +38,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
+
+
+        <LinearLayout
+            android:id="@+id/historyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/material_on_primary_emphasis_high_type"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchEditText">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최근 검색어"
+                android:layout_margin="8dp"
+                android:textStyle="bold|italic" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/historyRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

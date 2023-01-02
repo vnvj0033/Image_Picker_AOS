@@ -2,6 +2,7 @@ package com.yoosangyeop.imagepicker.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@ import com.yoosangyeop.imagepicker.util.DateUtil
 
 
 class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
-    var click: ((String) -> Unit)? = null
+    var clickFavorite: ((String) -> Unit)? = null
     private var favorites: List<String> = listOf()
 
     override fun onCreateViewHolder(
@@ -41,6 +42,8 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
 
         favorites = newFavorites
 
+        if (favorite.isEmpty()) return
+
         for (i in 0 until itemCount) {
             val item = getItem(i) ?: continue
 
@@ -63,7 +66,7 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
                 .into(thumbnail)
 
             binding.favoriteIcon.setOnClickListener {
-                click?.invoke(item.thumbnail_url)
+                clickFavorite?.invoke(item.thumbnail_url)
             }
 
             val isFavorite = favorites.contains(item.thumbnail_url)
@@ -73,11 +76,11 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
             } else {
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_off)
             }
-            
-            if (item is SearchImage.Document) {
-                typeIcon.setImageResource(R.drawable.ic_image)
-            } else if (item is SearchVClip.Document) {
-                typeIcon.setImageResource(R.drawable.ic_video)
+
+            when (item) {
+                is SearchImage.Document -> typeIcon.setImageResource(R.drawable.ic_image)
+                is SearchVClip.Document -> typeIcon.setImageResource(R.drawable.ic_video)
+                else -> typeIcon.isGone
             }
 
             val date = DateUtil.changeDatePattern(
@@ -100,7 +103,6 @@ private val comparator = object : DiffUtil.ItemCallback<SearchItem>() {
     override fun areContentsTheSame(oldItem: SearchItem, newItem: SearchItem): Boolean {
         return oldItem.thumbnail_url == newItem.thumbnail_url
                 && oldItem.datetime == newItem.datetime
-
     }
 
 }

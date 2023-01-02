@@ -5,94 +5,146 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
+import android.view.inputmethod.EditorInfo
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
+private const val SEARCH_LIST_SPAN_COUNT = 3
+
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: SearchViewModel by viewModels()
+    private val searchAdapter = SearchAdapter()
+    private val historyAdapter = HistoryAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentSearchBinding.inflate(inflater, container, false)
-        initFragment(binding)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
-    private fun initFragment(binding: FragmentSearchBinding) = with(binding) {
-        val viewModel: SearchViewModel by viewModels()
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 
-        val searchAdapter = SearchAdapter()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initEvent()
+        initFlow()
+    }
 
-        searchAdapter.click = { url ->
-            viewModel.clickFavorite(url)
-        }
-
+    private fun initView() = with(binding) {
         itemRecyclerView.run {
-            val spanCount = 3
-
-            addItemDecoration(SearchItemDecoration(spanCount, 8, true))
-            layoutManager = GridLayoutManager(context, spanCount)
-
+            addItemDecoration(SearchItemDecoration(SEARCH_LIST_SPAN_COUNT, 8, true))
+            layoutManager = GridLayoutManager(context, SEARCH_LIST_SPAN_COUNT)
             adapter = searchAdapter
         }
 
-        searchEditText.setOnFocusChangeListener { view, b ->
-            // TODO : 포커스 내려갈때 기록 숨기기 필요
-            if (b) {
-                historyRecyclerView.isVisible
-            } else {
-                historyRecyclerView.isGone
-            }
+        historyRecyclerView.adapter = historyAdapter
+        historyRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.emitHistory()
         }
+    }
 
-
+    private fun initEvent() = with(binding) {
+        // 검색 클릭
         searchButton.setOnClickListener {
-            // 검색 클릭
             val query = searchEditText.text ?: ""
             if (query.isNotEmpty()) {
                 viewModel.search(query.toString())
+                searchEditText.clearFocus()
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        // 뒤로가기 클릭
+        val backPressedCallback = object : OnBackPressedCallback(false) {
+            override fun handleOnBackPressed() {
+                if (searchEditText.isFocusable) {
+                    searchEditText.clearFocus()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
+
+        searchEditText.setOnFocusChangeListener { _, b ->
+            backPressedCallback.isEnabled = b
+            historyLayout.isVisible = b
+        }
+
+        searchAdapter.clickFavorite = { url ->
+            viewModel.clickFavorite(url)
+        }
+
+        historyAdapter.run {
+            clickRemove = { query ->
+                viewModel.removeHistory(query)
+            }
+
+            clickItem = { query ->
+                searchEditText.setText(query)
+                searchEditText.isFocusable = true
+            }
+        }
+
+
+        searchEditText.setOnEditorActionListener { _, i, _ ->
+            if (i == EditorInfo.IME_ACTION_DONE) {
+                searchButton.callOnClick()
+                return@setOnEditorActionListener false
+            }
+            return@setOnEditorActionListener true
+        }
+    }
+
+    private fun initFlow() = with(lifecycleScope) {
+
+        launchWhenStarted {
             viewModel.query.collect { query ->
                 Log.d("testsyyoo", "query : $query")
                 // TODO: query 활용법 찾기(기능없음)
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        launchWhenStarted {
             viewModel.searchHistory.collect { history ->
-                Log.d("testsyyoo", "history : $history")
-                // TODO: 검색 히스토리 UI 갱신
+                historyAdapter.updateHistory(history)
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        launchWhenStarted {
             viewModel.favorite.collect { favorites->
                 // 즐겨찾기 갱신
                 searchAdapter.updateFavorites(favorites)
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        launchWhenStarted {
             viewModel.searchItem.collectLatest { items ->
                 // 검색 결과 갱신
                 searchAdapter.submitData(items)
+                binding.itemRecyclerView.smoothScrollToPosition(0)
             }
         }
     }
-
 
 }

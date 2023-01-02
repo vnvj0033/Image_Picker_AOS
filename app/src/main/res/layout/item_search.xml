@@ -26,10 +26,9 @@
             <ImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:adjustViewBounds="true"
                 android:contentDescription="@null"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"

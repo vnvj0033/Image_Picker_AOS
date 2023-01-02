@@ -36,27 +36,13 @@ class SearchViewModel @Inject constructor(
     }.cachedIn(viewModelScope)
 
 
-    private fun addHistory() {
-        val addQuery = _query.value
-
-        viewModelScope.launch {
-            searchRepository.removeHistory(addQuery)
-            searchRepository.addHistory(addQuery)
-
-            searchRepository.searchHistory.collect { history ->
-                _searchHistory.emit(history)
-            }
-        }
-    }
 
     fun search(searchQuery: String) {
         _query.value = searchQuery
         addHistory()
 
         viewModelScope.launch {
-            searchRepository.favorite.collect { favorites ->
-                _favorite.emit(favorites)
-            }
+            emitFavorite()
         }
     }
 
@@ -68,10 +54,39 @@ class SearchViewModel @Inject constructor(
                 } else {
                     searchRepository.addFavorite(url)
                 }
-                searchRepository.favorite.collect { newFavorite ->
-                    _favorite.emit(newFavorite)
-                }
+                emitFavorite()
             }
         }
+    }
+
+    fun removeHistory(query: String) {
+        viewModelScope.launch {
+            searchRepository.removeHistory(query)
+
+            emitHistory()
+        }
+    }
+
+    suspend fun emitHistory() {
+        searchRepository.searchHistory.collect { history ->
+            _searchHistory.emit(history)
+        }
+    }
+
+    suspend fun emitFavorite() {
+        searchRepository.favorite.collect { newFavorite ->
+            _favorite.emit(newFavorite)
+        }
+    }
+
+    private fun addHistory() {
+        val addQuery = _query.value
+        viewModelScope.launch {
+            searchRepository.removeHistory(addQuery)
+            searchRepository.addHistory(addQuery)
+
+            emitHistory()
+        }
+
     }
 }

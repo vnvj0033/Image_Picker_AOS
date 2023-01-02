@@ -39,7 +39,6 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
         } else {
             favorites - newFavorites.toSet()
         }
-
         favorites = newFavorites
 
         if (favorite.isEmpty()) return

@@ -49,22 +49,38 @@ class SearchFragment : Fragment() {
         initView()
         initEvent()
         initFlow()
-    }
-
-    private fun initView() = with(binding) {
-        itemRecyclerView.run {
-            addItemDecoration(SearchItemDecoration(SEARCH_LIST_SPAN_COUNT, 8, true))
-            layoutManager = GridLayoutManager(context, SEARCH_LIST_SPAN_COUNT)
-            adapter = searchAdapter
-        }
-
-        historyRecyclerView.adapter = historyAdapter
-        historyRecyclerView.layoutManager = LinearLayoutManager(context)
 
         lifecycleScope.launchWhenStarted {
             viewModel.emitHistory()
         }
     }
+
+    private fun initView() = with(binding) {
+        searchRecyclerView.run {
+            addItemDecoration(SearchItemDecoration(SEARCH_LIST_SPAN_COUNT, 8, true))
+            layoutManager = GridLayoutManager(context, SEARCH_LIST_SPAN_COUNT)
+            adapter = searchAdapter
+        }
+
+        historyRecyclerView.run {
+            adapter = historyAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        searchAdapter.clickFavorite = { url ->
+            viewModel.clickFavorite(url)
+        }
+
+        historyAdapter.clickRemove = { query ->
+            viewModel.removeHistory(query)
+        }
+
+        historyAdapter.clickItem = { query ->
+            searchEditText.setText(query)
+            searchEditText.isFocusable = true
+        }
+    }
+
 
     private fun initEvent() = with(binding) {
         // 검색 클릭
@@ -86,24 +102,10 @@ class SearchFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
 
-        searchEditText.setOnFocusChangeListener { _, b ->
-            backPressedCallback.isEnabled = b
-            historyLayout.isVisible = b
-        }
-
-        searchAdapter.clickFavorite = { url ->
-            viewModel.clickFavorite(url)
-        }
-
-        historyAdapter.run {
-            clickRemove = { query ->
-                viewModel.removeHistory(query)
-            }
-
-            clickItem = { query ->
-                searchEditText.setText(query)
-                searchEditText.isFocusable = true
-            }
+        // editText focus, 최근 검색어 노출
+        searchEditText.setOnFocusChangeListener { _, isFocus ->
+            backPressedCallback.isEnabled = isFocus
+            historyLayout.isVisible = isFocus
         }
 
         searchEditText.setOnEditorActionListener { _, i, _ ->
@@ -119,7 +121,7 @@ class SearchFragment : Fragment() {
 
         launchWhenStarted {
             viewModel.query.collect { query ->
-                Log.d("testsyyoo", "query : $query")
+                Log.d("testsyyoo","query : $query")
             }
         }
 

@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="@+id/searchEditText" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/itemRecyclerView"
+            android:id="@+id/searchRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

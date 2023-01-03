@@ -26,11 +26,11 @@ class SearchItemDataSource(
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> = try{
         val start = params.key ?: DEFAULT_START
 
-        val images = runCatching { loadImages(params.loadSize, start) }.getOrNull() ?: listOf()
-        val clips = runCatching { loadClips(params.loadSize, start) }.getOrNull() ?: listOf()
+        val images = loadImages(params.loadSize, start)
+        val clips = loadClips(params.loadSize, start)
 
         val items = images + clips
         items.sortByNewest()
@@ -49,7 +49,9 @@ class SearchItemDataSource(
                 start - 1
             }
 
-        return LoadResult.Page(items, prevKey, nextKey)
+        LoadResult.Page(items, prevKey, nextKey)
+    } catch (e: Exception) {
+        LoadResult.Error(e)
     }
 
 

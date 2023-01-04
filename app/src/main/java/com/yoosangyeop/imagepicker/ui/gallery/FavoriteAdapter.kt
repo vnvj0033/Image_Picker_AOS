@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.yoosangyeop.imagepicker.R
 import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
 
@@ -43,6 +44,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
             Glide.with(root.context)
                 .load(favoriteUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(thumbnail)
 
             favoriteIcon.setImageResource(R.drawable.ic_favorite_on)

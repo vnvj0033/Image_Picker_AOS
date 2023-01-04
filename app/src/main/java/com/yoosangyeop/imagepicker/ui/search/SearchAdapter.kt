@@ -36,12 +36,12 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
     fun updateFavorites(newFavorites: List<String>) {
         val favorite = if (newFavorites.size > favorites.size) {
             newFavorites - favorites.toSet()
-        } else {
+        } else if (favorites.size > newFavorites.size) {
             favorites - newFavorites.toSet()
+        } else {
+            return
         }
         favorites = newFavorites
-
-        if (favorite.isEmpty()) return
 
         for (i in 0 until itemCount) {
             val item = getItem(i) ?: continue

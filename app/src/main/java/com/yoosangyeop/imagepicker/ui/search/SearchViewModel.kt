@@ -20,19 +20,18 @@ class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
 
-    private val _searchHistory = MutableSharedFlow<List<String>>(replay = 1)
-    val searchHistory: SharedFlow<List<String>> = _searchHistory.asSharedFlow()
+    private val _searchHistory = MutableStateFlow(searchRepository.searchHistory)
+    val searchHistory = _searchHistory.asStateFlow()
 
-    private val _favorite = MutableSharedFlow<List<String>>(replay = 1)
-    val favorite: SharedFlow<List<String>> = _favorite.asSharedFlow()
+    private val _favorite = MutableStateFlow(searchRepository.favorite)
+    val favorite = _favorite.asStateFlow()
 
     private val _query = savedStateHandle.getSavableMutableStateFlow(KEY_NAME_QUERY, "")
-    val query: StateFlow<String>
-        get() = _query.asStateFlow()
+    val query = _query.asStateFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val searchItem = query.flatMapLatest {
-        searchRepository.loadSearchItem(_query.value)
+        searchRepository.loadSearchItem(_query.value).flow
     }.cachedIn(viewModelScope)
 
     fun search(searchQuery: String) {
@@ -40,7 +39,18 @@ class SearchViewModel @Inject constructor(
         addHistory()
 
         viewModelScope.launch {
-            emitFavorite()
+            _favorite.value = searchRepository.favorite
+        }
+    }
+
+    fun clickFavorite(url: String) {
+        viewModelScope.launch {
+            if (_favorite.value.contains(url)) {
+                searchRepository.removeFavorite(url)
+            } else {
+                searchRepository.addFavorite(url)
+            }
+            _favorite.value = searchRepository.favorite
         }
     }
 
@@ -50,41 +60,14 @@ class SearchViewModel @Inject constructor(
             searchRepository.removeHistory(addQuery)
             searchRepository.addHistory(addQuery)
 
-            emitHistory()
-        }
-    }
-
-    fun clickFavorite(url: String) {
-        viewModelScope.launch {
-            searchRepository.favorite.collect { favorite ->
-                if (favorite.contains(url)) {
-                    searchRepository.removeFavorite(url)
-                } else {
-                    searchRepository.addFavorite(url)
-                }
-                emitFavorite()
-            }
+            _searchHistory.value = searchRepository.searchHistory
         }
     }
 
     fun removeHistory(query: String) {
         viewModelScope.launch {
             searchRepository.removeHistory(query)
-
-            emitHistory()
+            _searchHistory.value = searchRepository.searchHistory
         }
     }
-
-    suspend fun emitHistory() {
-        searchRepository.searchHistory.collect { history ->
-            _searchHistory.emit(history)
-        }
-    }
-
-    suspend fun emitFavorite() {
-        searchRepository.favorite.collect { newFavorite ->
-            _favorite.emit(newFavorite)
-        }
-    }
-
 }

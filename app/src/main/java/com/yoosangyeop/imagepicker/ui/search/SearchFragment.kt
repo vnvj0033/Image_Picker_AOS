@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 private const val SEARCH_LIST_SPAN_COUNT = 3
 
@@ -49,10 +48,6 @@ class SearchFragment : Fragment() {
         initView()
         initEvent()
         initFlow()
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.emitHistory()
-        }
     }
 
     private fun initView() = with(binding) {
@@ -139,7 +134,7 @@ class SearchFragment : Fragment() {
         }
 
         launchWhenStarted {
-            viewModel.searchItem.collectLatest { items ->
+            viewModel.searchItem.collect { items ->
                 // 검색 결과 갱신
                 searchAdapter.submitData(items)
             }

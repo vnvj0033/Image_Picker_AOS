@@ -14,7 +14,6 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     private var favoriteUrls: List<String> = listOf()
     var clickRemove: ((String) -> Unit)? = null
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemSearchBinding.inflate(layoutInflater, parent, false)

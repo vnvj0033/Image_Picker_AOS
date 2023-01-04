@@ -2,10 +2,8 @@ package com.yoosangyeop.imagepicker.domain
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.yoosangyeop.imagepicker.data.api.SearchService
 import com.yoosangyeop.imagepicker.data.model.SearchItem
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SearchRepositoryImpl @Inject constructor(
@@ -13,41 +11,33 @@ class SearchRepositoryImpl @Inject constructor(
     private val favoriteDataSource: FavoriteDataSource,
     private val searchService: SearchService
 ) : SearchRepository {
-    override val searchHistory: Flow<List<String>>
+    override val searchHistory: List<String>
         get() = historyDataSource.loadHistory()
 
-    override val favorite: Flow<List<String>>
+    override val favorite: List<String>
         get() = favoriteDataSource.loadFavorites()
 
     override suspend fun addHistory(query: String) {
-        searchHistory.collect { history ->
-            val list = history + query
-            historyDataSource.setHistory(list.reversed())
-        }
+        val list = searchHistory + query
+        historyDataSource.setHistory(list.reversed())
     }
 
     override suspend fun removeHistory(query: String) {
-        searchHistory.collect { history ->
-            val list = history - query
-            historyDataSource.setHistory(list)
-        }
+        val list = searchHistory - query
+        historyDataSource.setHistory(list)
     }
 
     override suspend fun addFavorite(url: String) {
-        favorite.collect { favorite ->
-            val list = favorite + url
-            favoriteDataSource.setFavorites(list)
-        }
+        val list = favorite + url
+        favoriteDataSource.setFavorites(list)
     }
 
     override suspend fun removeFavorite(url: String) {
-        favorite.collect { favorite ->
-            val list = favorite - url
-            favoriteDataSource.setFavorites(list)
-        }
+        val list = favorite - url
+        favoriteDataSource.setFavorites(list)
     }
 
-    override fun loadSearchItem(query: String): Flow<PagingData<SearchItem>> {
+    override fun loadSearchItem(query: String): Pager<Int, SearchItem> {
         return Pager(
             config = PagingConfig(
                 pageSize = SearchItemDataSource.DEFAULT_DISPLAY,
@@ -58,21 +48,19 @@ class SearchRepositoryImpl @Inject constructor(
             pagingSourceFactory = {
                 SearchItemDataSource(searchService, query)
             }
-        ).flow
+        )
     }
-
 }
 
-
 interface SearchRepository {
-    val searchHistory: Flow<List<String>>
+    val searchHistory: List<String>
     suspend fun addHistory(query: String)
     suspend fun removeHistory(query: String)
 
-    val favorite: Flow<List<String>>
+    val favorite: List<String>
     suspend fun addFavorite(url: String)
     suspend fun removeFavorite(url: String)
 
-    fun loadSearchItem(query: String): Flow<PagingData<SearchItem>>
+    fun loadSearchItem(query: String): Pager<Int, SearchItem>
 }
 

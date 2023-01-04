@@ -7,12 +7,10 @@ import java.util.*
 object DateUtil {
 
     fun changeDatePattern(date: String, fromPattern: String, toPattern: String): String {
-        val toDate = runCatching {
+        return runCatching {
             val format = SimpleDateFormat(fromPattern, Locale.KOREA)
-            SimpleDateFormat(toPattern, Locale.KOREA).format(format.parse(date))
-        }.getOrNull() ?: ""
-
-        return toDate
+            SimpleDateFormat(toPattern, Locale.KOREA).format(format.parse(date)!!)
+        }.getOrNull() ?: date
     }
 
     fun List<SearchItem>.sortByNewest() {
@@ -22,7 +20,7 @@ object DateUtil {
                     Locale.KOREA).parse(o1.datetime)
                 val date2 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
                     Locale.KOREA).parse(o2.datetime)
-                return@Comparator date2.compareTo(date1)
+                return@Comparator date2!!.compareTo(date1)
             }
             return@Comparator 0
         }

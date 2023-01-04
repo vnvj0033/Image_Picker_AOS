@@ -56,9 +56,5 @@ class GalleryFragment : Fragment() {
                 favoriteAdapter.updateFavorites(favorites)
             }
         }
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.emitFavorite()
-        }
     }
 }

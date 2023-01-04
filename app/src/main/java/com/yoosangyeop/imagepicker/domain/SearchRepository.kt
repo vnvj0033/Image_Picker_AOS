@@ -19,7 +19,7 @@ class SearchRepositoryImpl @Inject constructor(
 
     override suspend fun addHistory(query: String) {
         val list = searchHistory + query
-        historyDataSource.setHistory(list.reversed())
+        historyDataSource.setHistory(list)
     }
 
     override suspend fun removeHistory(query: String) {

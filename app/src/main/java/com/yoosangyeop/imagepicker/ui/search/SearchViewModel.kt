@@ -60,7 +60,7 @@ class SearchViewModel @Inject constructor(
             searchRepository.removeHistory(addQuery)
             searchRepository.addHistory(addQuery)
 
-            _searchHistory.value = searchRepository.searchHistory
+            _searchHistory.value = searchRepository.searchHistory.reversed()
         }
     }
 

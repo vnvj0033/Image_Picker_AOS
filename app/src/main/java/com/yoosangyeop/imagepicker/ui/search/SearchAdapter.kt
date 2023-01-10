@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yoosangyeop.imagepicker.R
+import com.yoosangyeop.imagepicker.data.model.SearchClip
 import com.yoosangyeop.imagepicker.data.model.SearchImage
 import com.yoosangyeop.imagepicker.data.model.SearchItem
-import com.yoosangyeop.imagepicker.data.model.SearchClip
 import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
 import com.yoosangyeop.imagepicker.util.DateUtil
 
 
 class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
     var clickFavorite: ((String) -> Unit)? = null
+    var clickImage: ((SearchItem) -> Unit)? = null
     private var favorites: List<String> = listOf()
 
     override fun onCreateViewHolder(
@@ -57,7 +58,6 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
         private val binding: ItemSearchBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(item: SearchItem) = with(binding) {
 
             Glide.with(root.context)
@@ -67,7 +67,9 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
             binding.favoriteIcon.setOnClickListener {
                 clickFavorite?.invoke(item.thumbnail_url)
             }
-
+            thumbnail.setOnClickListener {
+                clickImage?.invoke(item)
+            }
             val isFavorite = favorites.contains(item.thumbnail_url)
 
             if (isFavorite) {
@@ -81,6 +83,7 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
                 is SearchClip.Document -> typeIcon.setImageResource(R.drawable.ic_video)
                 else -> typeIcon.isGone
             }
+
 
             val date = DateUtil.changeDatePattern(
                 item.datetime,

@@ -13,7 +13,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yoosangyeop.imagepicker.data.model.SearchImage
 import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
+import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -64,6 +66,12 @@ class SearchFragment : Fragment() {
 
         searchAdapter.clickFavorite = { url ->
             viewModel.clickFavorite(url)
+        }
+        searchAdapter.clickImage = { item ->
+            if (item is SearchImage.Document) {
+                PinChImageDialogFragment(item.image_url)
+                    .show(parentFragmentManager, null)
+            }
         }
 
         historyAdapter.clickRemove = { query ->

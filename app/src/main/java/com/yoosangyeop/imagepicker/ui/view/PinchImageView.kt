@@ -6,6 +6,8 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
 
 
@@ -14,6 +16,11 @@ class PinchImageView : AppCompatImageView {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+
+    init {
+        adjustViewBounds = true
+        layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+    }
 
     private var scaleFactor = 1.0f
     private val scaleGestureDetector = ScaleGestureDetector(context,

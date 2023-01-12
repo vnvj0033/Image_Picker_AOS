@@ -1,5 +1,7 @@
 package com.yoosangyeop.imagepicker.ui.dialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +15,8 @@ import com.yoosangyeop.imagepicker.ui.view.PinchImageView
 
 class PinChImageDialogFragment : DialogFragment {
 
-    constructor()
-    constructor(url: String) {
+    constructor() : super()
+    constructor(url: String) : super() {
         this.url = url
     }
 
@@ -31,7 +33,9 @@ class PinChImageDialogFragment : DialogFragment {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        pinchImageView = PinchImageView(requireContext())
+        pinchImageView = PinchImageView(requireContext()).apply {
+            layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+        }
         return LinearLayout(requireContext()).apply {
             layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
             addView(pinchImageView)
@@ -44,5 +48,11 @@ class PinChImageDialogFragment : DialogFragment {
             .load(url)
             .override(SIZE_ORIGINAL)
             .into(pinchImageView)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dialog?.window?.setLayout(MATCH_PARENT, MATCH_PARENT)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 }

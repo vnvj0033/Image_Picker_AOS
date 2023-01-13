@@ -1,8 +1,8 @@
 package com.yoosangyeop.imagepicker.di
 
 import android.content.Context
-import com.yoosangyeop.imagepicker.data.api.SearchService
-import com.yoosangyeop.imagepicker.data.preferences.PreferencesUtil
+import com.yoosangyeop.imagepicker.domain.data.api.SearchService
+import com.yoosangyeop.imagepicker.domain.data.preferences.PreferencesUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yoosangyeop.imagepicker.R
-import com.yoosangyeop.imagepicker.data.model.SearchClip
-import com.yoosangyeop.imagepicker.data.model.SearchImage
-import com.yoosangyeop.imagepicker.data.model.SearchItem
+import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
+import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
+import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
 import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
 import com.yoosangyeop.imagepicker.util.DateUtil
 

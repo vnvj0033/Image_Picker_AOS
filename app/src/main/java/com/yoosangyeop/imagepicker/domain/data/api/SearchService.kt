@@ -1,7 +1,7 @@
-package com.yoosangyeop.imagepicker.data.api
+package com.yoosangyeop.imagepicker.domain.data.api
 
-import com.yoosangyeop.imagepicker.data.model.SearchImage
-import com.yoosangyeop.imagepicker.data.model.SearchClip
+import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
+import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
 import retrofit2.http.GET
 import retrofit2.http.Query
 

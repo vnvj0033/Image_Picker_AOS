@@ -2,8 +2,8 @@ package com.yoosangyeop.imagepicker.domain
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.yoosangyeop.imagepicker.data.api.SearchService
-import com.yoosangyeop.imagepicker.data.model.SearchItem
+import com.yoosangyeop.imagepicker.domain.data.api.SearchService
+import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
 import javax.inject.Inject
 
 class SearchRepositoryImpl @Inject constructor(

@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.data.model
+package com.yoosangyeop.imagepicker.domain.data.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -2,10 +2,10 @@ package com.yoosangyeop.imagepicker.domain
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.yoosangyeop.imagepicker.data.api.SearchService
-import com.yoosangyeop.imagepicker.data.model.SearchImage
-import com.yoosangyeop.imagepicker.data.model.SearchItem
-import com.yoosangyeop.imagepicker.data.model.SearchClip
+import com.yoosangyeop.imagepicker.domain.data.api.SearchService
+import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
+import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
+import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
 import com.yoosangyeop.imagepicker.util.DateUtil.sortByNewest
 
 class SearchItemDataSource(

@@ -1,7 +1,7 @@
 package com.yoosangyeop.imagepicker.domain
 
-import com.yoosangyeop.imagepicker.data.preferences.PREFERENCE_KEY_NAME_HISTORY_LIST
-import com.yoosangyeop.imagepicker.data.preferences.PreferencesUtil
+import com.yoosangyeop.imagepicker.domain.data.preferences.PREFERENCE_KEY_NAME_HISTORY_LIST
+import com.yoosangyeop.imagepicker.domain.data.preferences.PreferencesUtil
 import javax.inject.Inject
 
 class HistoryDataSource @Inject constructor(

@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.domain
+package com.yoosangyeop.imagepicker.domain.datasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

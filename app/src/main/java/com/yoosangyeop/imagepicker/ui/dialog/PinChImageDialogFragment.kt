@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
@@ -21,6 +23,7 @@ class PinChImageDialogFragment : DialogFragment {
     }
 
     private lateinit var pinchImageView: PinchImageView
+    private lateinit var closeView: ImageView
     private var url = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +39,17 @@ class PinChImageDialogFragment : DialogFragment {
         pinchImageView = PinchImageView(requireContext()).apply {
             layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
         }
-        return LinearLayout(requireContext()).apply {
+
+        closeView = ImageView(requireContext()).apply {
+            setImageResource(android.R.drawable.ic_menu_close_clear_cancel)
+        }
+
+        val layer = FrameLayout(requireContext()).apply {
             layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
             addView(pinchImageView)
+            addView(closeView)
         }
+        return layer
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,6 +58,10 @@ class PinChImageDialogFragment : DialogFragment {
             .load(url)
             .override(SIZE_ORIGINAL)
             .into(pinchImageView)
+
+        closeView.setOnClickListener {
+            dismiss()
+        }
     }
 
     override fun onResume() {

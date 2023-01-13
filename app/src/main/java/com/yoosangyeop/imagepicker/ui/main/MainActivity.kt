@@ -1,10 +1,9 @@
-package com.yoosangyeop.imagepicker
+package com.yoosangyeop.imagepicker.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yoosangyeop.imagepicker.databinding.ActivityMainBinding
-import com.yoosangyeop.imagepicker.ui.main.MainPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,11 +1,17 @@
 package com.yoosangyeop.imagepicker.domain.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class SearchClip(
     val meta: Meta,
     val documents: List<Document>
 ) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
     data class Document(
         val title: String,
         val url: String,
@@ -17,10 +23,14 @@ data class SearchClip(
     ) : SearchItem
 }
 
+@Entity
 data class SearchImage(
     val meta: Meta,
     val documents: List<Document>
 ) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
     data class Document(
         val collection: String,
         override val thumbnail_url: String,

@@ -47,8 +47,8 @@ class GalleryFragment : Fragment() {
 
         }
 
-        favoriteAdapter.clickRemove =  { url ->
-            viewModel.clickFavorite(url)
+        favoriteAdapter.clickRemove =  { favorite ->
+            viewModel.clickFavorite(favorite)
         }
 
         lifecycleScope.launchWhenStarted {

@@ -17,7 +17,7 @@ class SearchRepositoryImpl @Inject constructor(
     override val searchHistory: List<String>
         get() = historyDataSource.loadHistory()
 
-    override val favorite: List<String>
+    override val favorite: List<SearchItem>
         get() = favoriteDataSource.loadFavorites()
 
     override suspend fun addHistory(query: String) {
@@ -30,15 +30,8 @@ class SearchRepositoryImpl @Inject constructor(
         historyDataSource.setHistory(list)
     }
 
-    override suspend fun addFavorite(url: String) {
-        val list = favorite + url
-        favoriteDataSource.setFavorites(list)
-    }
-
-    override suspend fun removeFavorite(url: String) {
-        val list = favorite - url
-        favoriteDataSource.setFavorites(list)
-    }
+    override suspend fun addFavorite(item: SearchItem) = favoriteDataSource.addFavorite(item)
+    override suspend fun removeFavorite(item: SearchItem) = favoriteDataSource.removeFavorite(item)
 
     override fun loadSearchItem(query: String): Pager<Int, SearchItem> {
         return Pager(
@@ -60,9 +53,9 @@ interface SearchRepository {
     suspend fun addHistory(query: String)
     suspend fun removeHistory(query: String)
 
-    val favorite: List<String>
-    suspend fun addFavorite(url: String)
-    suspend fun removeFavorite(url: String)
+    val favorite: List<SearchItem>
+    suspend fun addFavorite(item: SearchItem)
+    suspend fun removeFavorite(item: SearchItem)
 
     fun loadSearchItem(query: String): Pager<Int, SearchItem>
 }

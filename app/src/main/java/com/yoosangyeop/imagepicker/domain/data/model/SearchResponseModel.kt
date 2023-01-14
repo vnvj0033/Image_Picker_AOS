@@ -4,42 +4,38 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity
 data class SearchClip(
     val meta: Meta,
-    val documents: List<Document>
+    val documents: List<ClipDocument>
 ) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-
-    data class Document(
-        val title: String,
-        val url: String,
-        override val datetime: String,
-        val play_time: Int,
+    @Entity
+    data class ClipDocument(
+        @PrimaryKey
         @SerializedName("thumbnail")
         override val thumbnail_url: String,
+        override val datetime: String,
+        val title: String,
+        val url: String,
+        val play_time: Int,
         val author: String
     ) : SearchItem
 }
 
-@Entity
 data class SearchImage(
     val meta: Meta,
-    val documents: List<Document>
+    val documents: List<ImageDocument>
 ) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-
-    data class Document(
-        val collection: String,
+    @Entity
+    data class ImageDocument(
+        @PrimaryKey
         override val thumbnail_url: String,
+        override val datetime: String,
+        val collection: String,
         val image_url: String,
         val width: Int,
         val height: Int,
         val display_sitename: String,
         val doc_url: String,
-        override val datetime: String,
     ) : SearchItem
 }
 

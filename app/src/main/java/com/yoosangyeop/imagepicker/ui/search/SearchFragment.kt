@@ -64,11 +64,11 @@ class SearchFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        searchAdapter.clickFavorite = { url ->
-            viewModel.clickFavorite(url)
+        searchAdapter.clickFavorite = { item ->
+            viewModel.clickFavorite(item)
         }
         searchAdapter.clickImage = { item ->
-            if (item is SearchImage.Document) {
+            if (item is SearchImage.ImageDocument) {
                 PinChImageDialogFragment(item.image_url)
                     .show(parentFragmentManager, null)
             }

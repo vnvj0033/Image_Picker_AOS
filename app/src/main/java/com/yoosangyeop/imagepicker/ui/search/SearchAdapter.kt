@@ -16,9 +16,9 @@ import com.yoosangyeop.imagepicker.util.DateUtil
 
 
 class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
-    var clickFavorite: ((String) -> Unit)? = null
+    var clickFavorite: ((SearchItem) -> Unit)? = null
     var clickImage: ((SearchItem) -> Unit)? = null
-    private var favorites: List<String> = listOf()
+    private var favorites: List<SearchItem> = listOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,7 +34,7 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
         holder.bind(item)
     }
 
-    fun updateFavorites(newFavorites: List<String>) {
+    fun updateFavorites(newFavorites: List<SearchItem>) {
         val favorite = if (newFavorites.size > favorites.size) {
             newFavorites - favorites.toSet()
         } else if (favorites.size > newFavorites.size) {
@@ -47,7 +47,7 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
         for (i in 0 until itemCount) {
             val item = getItem(i) ?: continue
 
-            if (item.thumbnail_url == favorite.first()) {
+            if (item == favorite.first()) {
                 notifyItemChanged(i)
                 break
             }
@@ -65,12 +65,12 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
                 .into(thumbnail)
 
             binding.favoriteIcon.setOnClickListener {
-                clickFavorite?.invoke(item.thumbnail_url)
+                clickFavorite?.invoke(item)
             }
             thumbnail.setOnClickListener {
                 clickImage?.invoke(item)
             }
-            val isFavorite = favorites.contains(item.thumbnail_url)
+            val isFavorite = favorites.contains(item)
 
             if (isFavorite) {
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_on)
@@ -79,8 +79,8 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
             }
 
             when (item) {
-                is SearchImage.Document -> typeIcon.setImageResource(R.drawable.ic_image)
-                is SearchClip.Document -> typeIcon.setImageResource(R.drawable.ic_video)
+                is SearchImage.ImageDocument -> typeIcon.setImageResource(R.drawable.ic_image)
+                is SearchClip.ClipDocument -> typeIcon.setImageResource(R.drawable.ic_video)
                 else -> typeIcon.isGone
             }
 

@@ -57,7 +57,7 @@ class SearchItemDataSource(
 
     private var isEndPageOfImages = false
     private var isEndPageOfClips = false
-    private suspend fun loadImages(loadSize: Int, start: Int): List<SearchImage.Document> {
+    private suspend fun loadImages(loadSize: Int, start: Int): List<SearchImage.ImageDocument> {
         if (isEndPageOfImages) return listOf()
 
         val images = searchService.getImages(
@@ -74,7 +74,7 @@ class SearchItemDataSource(
         return images.documents
     }
 
-    private suspend fun loadClips(loadSize: Int, start: Int): List<SearchClip.Document> {
+    private suspend fun loadClips(loadSize: Int, start: Int): List<SearchClip.ClipDocument> {
         if (isEndPageOfClips) return listOf()
 
         val clips = searchService.getVClips(

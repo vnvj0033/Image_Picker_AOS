@@ -1,11 +1,7 @@
 package com.yoosangyeop.imagepicker.di
 
 import android.content.Context
-import androidx.room.Room
 import com.yoosangyeop.imagepicker.domain.data.api.SearchService
-import com.yoosangyeop.imagepicker.domain.data.db.SearchClipDao
-import com.yoosangyeop.imagepicker.domain.data.db.SearchImageDao
-import com.yoosangyeop.imagepicker.domain.data.db.SearchDatabase
 import com.yoosangyeop.imagepicker.domain.data.preferences.PreferencesUtil
 import dagger.Module
 import dagger.Provides
@@ -48,20 +44,5 @@ object AppModule {
     fun provideSearchService(retrofit: Retrofit): SearchService =
         retrofit.create(SearchService::class.java)
 
-    @Singleton
-    @Provides
-    fun provideSearchDB(@ApplicationContext context: Context): SearchDatabase =
-        Room.databaseBuilder(context, SearchDatabase::class.java, "search_database")
-            .build()
-
-    @Singleton
-    @Provides
-    fun provideSearchImageDao(database: SearchDatabase) : SearchImageDao =
-        database.searchImageDao()
-
-    @Singleton
-    @Provides
-    fun provideSearchClipDao(database: SearchDatabase) : SearchClipDao =
-        database.searchClipDao()
 
 }

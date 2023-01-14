@@ -7,13 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.yoosangyeop.imagepicker.ui.view.PinchImageView
+import com.yoosangyeop.imagepicker.util.dp
 
 class PinChImageDialogFragment : DialogFragment {
 
@@ -41,6 +44,9 @@ class PinChImageDialogFragment : DialogFragment {
         }
 
         closeView = ImageView(requireContext()).apply {
+            layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
+                setPadding(16.dp().toInt())
+            }
             setImageResource(android.R.drawable.ic_menu_close_clear_cancel)
         }
 

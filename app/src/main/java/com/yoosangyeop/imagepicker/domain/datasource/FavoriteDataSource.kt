@@ -26,8 +26,8 @@ class FavoriteDataSource @Inject constructor(
     }
 
     fun removeFavorite(item: SearchItem) = when (item) {
-        is SearchImage.ImageDocument -> imageDao.insert(item)
-        is SearchClip.ClipDocument -> clipDao.insert(item)
+        is SearchImage.ImageDocument -> imageDao.delete(item)
+        is SearchClip.ClipDocument -> clipDao.delete(item)
         else -> check(true)
     }
 }

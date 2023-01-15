@@ -17,6 +17,7 @@ object DatabaseModule {
     @Provides
     fun provideFavoriteDB(@ApplicationContext context: Context) =
         Room.databaseBuilder(context, SearchFavoriteDatabase::class.java, "favorite_database")
+            .allowMainThreadQueries()
             .build()
 
     @Provides

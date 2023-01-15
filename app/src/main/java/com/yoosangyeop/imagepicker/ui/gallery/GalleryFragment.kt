@@ -9,8 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yoosangyeop.imagepicker.databinding.FragmentGalleryBinding
+import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
 import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
+import com.yoosangyeop.imagepicker.ui.dialog.VideoDialogFragment
 import com.yoosangyeop.imagepicker.ui.search.SearchViewModel
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,6 +58,9 @@ class GalleryFragment : Fragment() {
         favoriteAdapter.clickItem = { item ->
             if (item is SearchImage.ImageDocument) {
                 PinChImageDialogFragment(item.image_url)
+                    .show(parentFragmentManager, null)
+            } else if (item is SearchClip.ClipDocument) {
+                VideoDialogFragment(item.url)
                     .show(parentFragmentManager, null)
             }
         }

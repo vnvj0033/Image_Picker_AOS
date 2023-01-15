@@ -17,7 +17,7 @@ import com.yoosangyeop.imagepicker.util.DateUtil
 
 class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
     var clickFavorite: ((SearchItem) -> Unit)? = null
-    var clickImage: ((SearchItem) -> Unit)? = null
+    var clickItem: ((SearchItem) -> Unit)? = null
     private var favorites: List<SearchItem> = listOf()
 
     override fun onCreateViewHolder(
@@ -68,7 +68,7 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
                 clickFavorite?.invoke(item)
             }
             thumbnail.setOnClickListener {
-                clickImage?.invoke(item)
+                clickItem?.invoke(item)
             }
             val isFavorite = favorites.contains(item)
 

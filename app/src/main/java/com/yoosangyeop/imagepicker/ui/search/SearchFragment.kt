@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
+import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
+import com.yoosangyeop.imagepicker.ui.dialog.VideoDialogFragment
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -67,9 +69,12 @@ class SearchFragment : Fragment() {
         searchAdapter.clickFavorite = { item ->
             viewModel.clickFavorite(item)
         }
-        searchAdapter.clickImage = { item ->
+        searchAdapter.clickItem = { item ->
             if (item is SearchImage.ImageDocument) {
                 PinChImageDialogFragment(item.image_url)
+                    .show(parentFragmentManager, null)
+            } else if (item is SearchClip.ClipDocument) {
+                VideoDialogFragment(item.url)
                     .show(parentFragmentManager, null)
             }
         }
@@ -103,7 +108,10 @@ class SearchFragment : Fragment() {
                 }
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            backPressedCallback
+        )
 
         // editText focus, 최근 검색어 노출
         searchEditText.setOnFocusChangeListener { _, isFocus ->
@@ -124,7 +132,7 @@ class SearchFragment : Fragment() {
 
         launchWhenStarted {
             viewModel.query.collect { query ->
-                Log.d("testsyyoo","query : $query")
+                Log.d("testsyyoo", "query : $query")
             }
         }
 
@@ -135,7 +143,7 @@ class SearchFragment : Fragment() {
         }
 
         launchWhenStarted {
-            viewModel.favorite.collect { favorites->
+            viewModel.favorite.collect { favorites ->
                 // 즐겨찾기 갱신
                 searchAdapter.updateFavorites(favorites)
             }

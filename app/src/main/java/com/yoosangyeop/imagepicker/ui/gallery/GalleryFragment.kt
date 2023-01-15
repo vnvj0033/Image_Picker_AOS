@@ -9,6 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yoosangyeop.imagepicker.databinding.FragmentGalleryBinding
+import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
+import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.ui.search.SearchViewModel
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,6 +51,13 @@ class GalleryFragment : Fragment() {
 
         favoriteAdapter.clickRemove =  { favorite ->
             viewModel.clickFavorite(favorite)
+        }
+
+        favoriteAdapter.clickItem = { item ->
+            if (item is SearchImage.ImageDocument) {
+                PinChImageDialogFragment(item.image_url)
+                    .show(parentFragmentManager, null)
+            }
         }
 
         lifecycleScope.launchWhenStarted {

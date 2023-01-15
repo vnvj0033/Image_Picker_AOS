@@ -15,6 +15,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
     private var favorites: List<SearchItem> = listOf()
     var clickRemove: ((SearchItem) -> Unit)? = null
+    var clickItem: ((SearchItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -52,6 +53,10 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
             favoriteIcon.setOnClickListener {
                 clickRemove?.invoke(favorites)
+            }
+
+            thumbnail.setOnClickListener {
+                clickItem?.invoke(favorites)
             }
         }
 

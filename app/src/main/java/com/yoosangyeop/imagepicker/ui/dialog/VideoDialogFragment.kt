@@ -10,6 +10,9 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.ui.PlayerControlView
 
 class VideoDialogFragment : DialogFragment {
 
@@ -31,8 +34,17 @@ class VideoDialogFragment : DialogFragment {
         savedInstanceState: Bundle?
     ): View {
 
+        val player = ExoPlayer.Builder(requireContext()).build().apply {
+            setMediaItem(MediaItem.fromUri(url))
+        }
+
+        val playerView = PlayerControlView(requireContext()).apply {
+            setPlayer(player)
+        }
+
         val layer = FrameLayout(requireContext()).apply {
             layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+            addView(playerView)
         }
         return layer
     }

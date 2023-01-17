@@ -65,7 +65,7 @@ class GalleryFragment : Fragment() {
                     .show(parentFragmentManager, null)
             } else if (item is SearchClip.ClipDocument) {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse("https://www.naver.com/")
+                    data = Uri.parse(item.url)
                 })
             }
         }

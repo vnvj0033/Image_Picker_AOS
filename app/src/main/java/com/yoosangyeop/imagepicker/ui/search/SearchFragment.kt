@@ -73,13 +73,14 @@ class SearchFragment : Fragment() {
         searchAdapter.clickFavorite = { item ->
             viewModel.clickFavorite(item)
         }
+
         searchAdapter.clickItem = { item ->
             if (item is SearchImage.ImageDocument) {
                 PinChImageDialogFragment(item.image_url)
                     .show(parentFragmentManager, null)
             } else if (item is SearchClip.ClipDocument) {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse("https://www.naver.com/")
+                    data = Uri.parse(item.url)
                 })
             }
         }
@@ -133,31 +134,43 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun initFlow() = viewLifecycleOwner.lifecycleScope.launch {
+    private fun initFlow() = with(viewLifecycleOwner.lifecycleScope) {
 
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.query.collect { query ->
-                Log.d("testsyyoo", "query : $query")
+        launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                Log.d("testsyyoo", "repeatOnLifecycle 1")
+                viewModel.query.collect { query ->
+                    Log.d("testsyyoo", "query : $query")
+                }
             }
         }
 
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.searchHistory.collect { history ->
-                historyAdapter.updateHistory(history)
+        launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                Log.d("testsyyoo", "repeatOnLifecycle 2")
+                viewModel.searchHistory.collect { history ->
+                    historyAdapter.updateHistory(history)
+                }
             }
         }
 
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.favorite.collect { favorites ->
-                // 즐겨찾기 갱신
-                searchAdapter.updateFavorites(favorites)
+        launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                Log.d("testsyyoo", "repeatOnLifecycle 3")
+                viewModel.favorite.collect { favorites ->
+                    // 즐겨찾기 갱신
+                    searchAdapter.updateFavorites(favorites)
+                }
             }
         }
 
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.searchItem.collect { items ->
-                // 검색 결과 갱신
-                searchAdapter.submitData(items)
+        launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                Log.d("testsyyoo", "repeatOnLifecycle 4")
+                viewModel.searchItem.collect { items ->
+                    // 검색 결과 갱신
+                    searchAdapter.submitData(items)
+                }
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.yoosangyeop.imagepicker.ui.gallery
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +14,6 @@ import com.yoosangyeop.imagepicker.databinding.FragmentGalleryBinding
 import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
 import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
-import com.yoosangyeop.imagepicker.ui.dialog.VideoDialogFragment
 import com.yoosangyeop.imagepicker.ui.search.SearchViewModel
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +23,7 @@ private const val FAVORITE_LIST_SPAN_COUNT = 2
 @AndroidEntryPoint
 class GalleryFragment : Fragment() {
     private var _binding: FragmentGalleryBinding? = null
-    private val binding get() =_binding!!
+    private val binding get() = _binding!!
 
     private val viewModel: SearchViewModel by activityViewModels()
     private val favoriteAdapter = FavoriteAdapter()
@@ -51,7 +52,7 @@ class GalleryFragment : Fragment() {
 
         }
 
-        favoriteAdapter.clickRemove =  { favorite ->
+        favoriteAdapter.clickRemove = { favorite ->
             viewModel.clickFavorite(favorite)
         }
 
@@ -60,8 +61,9 @@ class GalleryFragment : Fragment() {
                 PinChImageDialogFragment(item.image_url)
                     .show(parentFragmentManager, null)
             } else if (item is SearchClip.ClipDocument) {
-                VideoDialogFragment(item.url)
-                    .show(parentFragmentManager, null)
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse("https://www.naver.com/")
+                })
             }
         }
 

@@ -1,5 +1,7 @@
 package com.yoosangyeop.imagepicker.ui.search
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,11 +15,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
 import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
+import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
-import com.yoosangyeop.imagepicker.ui.dialog.VideoDialogFragment
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -74,8 +75,9 @@ class SearchFragment : Fragment() {
                 PinChImageDialogFragment(item.image_url)
                     .show(parentFragmentManager, null)
             } else if (item is SearchClip.ClipDocument) {
-                VideoDialogFragment(item.url)
-                    .show(parentFragmentManager, null)
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse("https://www.naver.com/")
+                })
             }
         }
 

@@ -12,7 +12,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
@@ -21,6 +23,7 @@ import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 private const val SEARCH_LIST_SPAN_COUNT = 3
 
@@ -130,28 +133,28 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun initFlow() = with(lifecycleScope) {
+    private fun initFlow() = viewLifecycleOwner.lifecycleScope.launch {
 
-        launchWhenStarted {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.query.collect { query ->
                 Log.d("testsyyoo", "query : $query")
             }
         }
 
-        launchWhenStarted {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.searchHistory.collect { history ->
                 historyAdapter.updateHistory(history)
             }
         }
 
-        launchWhenStarted {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.favorite.collect { favorites ->
                 // 즐겨찾기 갱신
                 searchAdapter.updateFavorites(favorites)
             }
         }
 
-        launchWhenStarted {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.searchItem.collect { items ->
                 // 검색 결과 갱신
                 searchAdapter.submitData(items)

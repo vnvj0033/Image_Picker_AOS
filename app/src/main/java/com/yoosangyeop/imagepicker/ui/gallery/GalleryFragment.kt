@@ -8,9 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yoosangyeop.imagepicker.databinding.FragmentGalleryBinding
 import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
@@ -18,8 +15,8 @@ import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.ui.search.SearchViewModel
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
+import com.yoosangyeop.imagepicker.util.launchWhenStart
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 private const val FAVORITE_LIST_SPAN_COUNT = 2
 
@@ -70,11 +67,9 @@ class GalleryFragment : Fragment() {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.favorite.collect { favorites ->
-                    favoriteAdapter.updateFavorites(favorites)
-                }
+        launchWhenStart {
+            viewModel.favorite.collect { favorites ->
+                favoriteAdapter.updateFavorites(favorites)
             }
         }
     }

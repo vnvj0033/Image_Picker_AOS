@@ -12,9 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
@@ -22,8 +20,8 @@ import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
 import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.util.SearchItemDecoration
+import com.yoosangyeop.imagepicker.util.launchWhenStart
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 private const val SEARCH_LIST_SPAN_COUNT = 3
 
@@ -136,41 +134,29 @@ class SearchFragment : Fragment() {
 
     private fun initFlow() = with(viewLifecycleOwner.lifecycleScope) {
 
-        launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                Log.d("testsyyoo", "repeatOnLifecycle 1")
-                viewModel.query.collect { query ->
-                    Log.d("testsyyoo", "query : $query")
-                }
+        launchWhenStart {
+            viewModel.query.collect { query ->
+                Log.d("testsyyoo", "query : $query")
             }
         }
 
-        launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                Log.d("testsyyoo", "repeatOnLifecycle 2")
-                viewModel.searchHistory.collect { history ->
-                    historyAdapter.updateHistory(history)
-                }
+        launchWhenStart {
+            viewModel.searchHistory.collect { history ->
+                historyAdapter.updateHistory(history)
             }
         }
 
-        launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                Log.d("testsyyoo", "repeatOnLifecycle 3")
-                viewModel.favorite.collect { favorites ->
-                    // 즐겨찾기 갱신
-                    searchAdapter.updateFavorites(favorites)
-                }
+        launchWhenStart {
+            viewModel.favorite.collect { favorites ->
+                // 즐겨찾기 갱신
+                searchAdapter.updateFavorites(favorites)
             }
         }
 
-        launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                Log.d("testsyyoo", "repeatOnLifecycle 4")
-                viewModel.searchItem.collect { items ->
-                    // 검색 결과 갱신
-                    searchAdapter.submitData(items)
-                }
+        launchWhenStart {
+            viewModel.searchItem.collect { items ->
+                // 검색 결과 갱신
+                searchAdapter.submitData(items)
             }
         }
     }

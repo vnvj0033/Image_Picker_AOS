@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.yoosangyeop.imagepicker.domain.data.model.FavoriteDate
 import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
 import com.yoosangyeop.imagepicker.domain.repository.SearchRepository
 import com.yoosangyeop.imagepicker.util.getSavableMutableStateFlow
@@ -49,6 +50,9 @@ class SearchViewModel @Inject constructor(
             if (_favorite.value.contains(favorite)) {
                 searchRepository.removeFavorite(favorite)
             } else {
+                if (favorite is FavoriteDate) {
+                    favorite.favoriteDate = System.currentTimeMillis()
+                }
                 searchRepository.addFavorite(favorite)
             }
             _favorite.value = searchRepository.favorite

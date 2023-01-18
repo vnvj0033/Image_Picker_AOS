@@ -16,7 +16,11 @@ class FavoriteDataSource @Inject constructor(
         val images = imageDao.getAll()
         val clips = clipDao.getAll()
 
-        return images + clips
+        val list = images + clips
+
+        return list.sortedBy {
+            it.favoriteDate
+        }.reversed()
     }
 
     fun addFavorite(item: SearchItem) = when (item) {

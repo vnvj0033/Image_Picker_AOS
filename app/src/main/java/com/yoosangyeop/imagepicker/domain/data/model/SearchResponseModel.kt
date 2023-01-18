@@ -10,7 +10,6 @@ data class SearchClip(
 ) {
     @Entity
     data class ClipDocument(
-        @PrimaryKey
         @SerializedName("thumbnail")
         override val thumbnail_url: String,
         override val datetime: String,
@@ -18,7 +17,11 @@ data class SearchClip(
         val url: String,
         val play_time: Int,
         val author: String
-    ) : SearchItem
+    ) : SearchItem, FavoriteDate {
+        @PrimaryKey(autoGenerate = true)
+        var id = 0
+        override var favoriteDate: Long? = null
+    }
 }
 
 data class SearchImage(
@@ -27,7 +30,6 @@ data class SearchImage(
 ) {
     @Entity
     data class ImageDocument(
-        @PrimaryKey
         override val thumbnail_url: String,
         override val datetime: String,
         val collection: String,
@@ -36,7 +38,11 @@ data class SearchImage(
         val height: Int,
         val display_sitename: String,
         val doc_url: String,
-    ) : SearchItem
+    ) : SearchItem, FavoriteDate {
+        @PrimaryKey(autoGenerate = true)
+        var id = 0
+        override var favoriteDate: Long? = null
+    }
 }
 
 data class Meta(
@@ -49,4 +55,8 @@ data class Meta(
 interface SearchItem {
     val thumbnail_url: String
     val datetime: String
+}
+
+interface FavoriteDate {
+    var favoriteDate: Long?
 }

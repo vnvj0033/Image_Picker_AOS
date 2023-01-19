@@ -1,7 +1,6 @@
 package com.yoosangyeop.imagepicker.domain.data.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
@@ -14,6 +13,6 @@ interface SearchClipDao {
     @Insert
     fun insert(clip: SearchClip.ClipDocument)
 
-    @Delete
-    fun delete(clip: SearchClip.ClipDocument)
+    @Query("DELETE FROM ClipDocument WHERE thumbnail_url = :url AND datetime = :datetime")
+    fun delete(url: String, datetime: String)
 }

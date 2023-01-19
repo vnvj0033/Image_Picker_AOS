@@ -16,11 +16,7 @@ class FavoriteDataSource @Inject constructor(
         val images = imageDao.getAll()
         val clips = clipDao.getAll()
 
-        val list = images + clips
-
-        return list.sortedBy {
-            it.favoriteDate
-        }.reversed()
+        return images + clips
     }
 
     fun addFavorite(item: SearchItem) = when (item) {
@@ -30,8 +26,8 @@ class FavoriteDataSource @Inject constructor(
     }
 
     fun removeFavorite(item: SearchItem) = when (item) {
-        is SearchImage.ImageDocument -> imageDao.delete(item)
-        is SearchClip.ClipDocument -> clipDao.delete(item)
+        is SearchImage.ImageDocument -> imageDao.delete(item.thumbnail_url, item.datetime)
+        is SearchClip.ClipDocument -> clipDao.delete(item.thumbnail_url, item.datetime)
         else -> check(true)
     }
 }

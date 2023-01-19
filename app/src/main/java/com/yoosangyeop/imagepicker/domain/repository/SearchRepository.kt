@@ -7,6 +7,7 @@ import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
 import com.yoosangyeop.imagepicker.domain.datasource.FavoriteDataSource
 import com.yoosangyeop.imagepicker.domain.datasource.HistoryDataSource
 import com.yoosangyeop.imagepicker.domain.datasource.SearchItemDataSource
+import com.yoosangyeop.imagepicker.util.sortedByFavoriteDate
 import javax.inject.Inject
 
 class SearchRepositoryImpl @Inject constructor(
@@ -18,7 +19,7 @@ class SearchRepositoryImpl @Inject constructor(
         get() = historyDataSource.loadHistory()
 
     override val favorite: List<SearchItem>
-        get() = favoriteDataSource.loadFavorites()
+        get() = favoriteDataSource.loadFavorites().sortedByFavoriteDate()
 
     override suspend fun addHistory(query: String) {
         val list = searchHistory + query

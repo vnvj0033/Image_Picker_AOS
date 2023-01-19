@@ -1,7 +1,6 @@
 package com.yoosangyeop.imagepicker.domain.data.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
@@ -15,6 +14,6 @@ interface SearchImageDao {
     @Insert
     fun insert(clip: SearchImage.ImageDocument)
 
-    @Delete
-    fun delete(clip: SearchImage.ImageDocument)
+    @Query("DELETE FROM ImageDocument WHERE thumbnail_url = :url AND datetime = :datetime")
+    fun delete(url: String, datetime: String)
 }

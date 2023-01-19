@@ -6,7 +6,7 @@ import com.yoosangyeop.imagepicker.domain.data.api.SearchService
 import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
 import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
-import com.yoosangyeop.imagepicker.util.DateUtil.sortByNewest
+import com.yoosangyeop.imagepicker.util.sortByNewest
 
 class SearchItemDataSource(
     private val searchService: SearchService,

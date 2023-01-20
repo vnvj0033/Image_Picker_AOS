@@ -4,7 +4,14 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class SearchItemDecoration(private val spanCount: Int, private val spacing: Int, private val includeEdge: Boolean) : RecyclerView.ItemDecoration() {
+private const val DEFAULT_SPAN_COUNT = 2
+private const val DEFAULT_SPACING = 4
+
+class ListItemDecoration(
+    private val spanCount: Int = DEFAULT_SPAN_COUNT,
+    private val spacing: Int = DEFAULT_SPACING,
+    private val includeEdge: Boolean = true
+) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position = parent.getChildAdapterPosition(view) // item position

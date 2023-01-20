@@ -19,7 +19,7 @@ import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
 import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
 import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
-import com.yoosangyeop.imagepicker.util.SearchItemDecoration
+import com.yoosangyeop.imagepicker.util.ListItemDecoration
 import com.yoosangyeop.imagepicker.util.launchWhenStart
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,7 +58,7 @@ class SearchFragment : Fragment() {
 
     private fun initView() = with(binding) {
         searchRecyclerView.run {
-            addItemDecoration(SearchItemDecoration(SEARCH_LIST_SPAN_COUNT, 8, true))
+            addItemDecoration(ListItemDecoration(SEARCH_LIST_SPAN_COUNT, 8))
             layoutManager = GridLayoutManager(context, SEARCH_LIST_SPAN_COUNT)
             adapter = searchAdapter
         }
@@ -68,9 +68,8 @@ class SearchFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        searchAdapter.clickFavorite = { item ->
-            viewModel.clickFavorite(item)
-        }
+        searchAdapter.clickFavorite = viewModel::clickFavorite
+        historyAdapter.clickRemove = viewModel::removeHistory
 
         searchAdapter.clickItem = { item ->
             if (item is SearchImage.ImageDocument) {
@@ -83,9 +82,6 @@ class SearchFragment : Fragment() {
             }
         }
 
-        historyAdapter.clickRemove = { query ->
-            viewModel.removeHistory(query)
-        }
 
         historyAdapter.clickItem = { query ->
             searchEditText.setText(query)
@@ -112,10 +108,8 @@ class SearchFragment : Fragment() {
                 }
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            backPressedCallback
-        )
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, backPressedCallback)
 
         // editText focus, 최근 검색어 노출
         searchEditText.setOnFocusChangeListener { _, isFocus ->

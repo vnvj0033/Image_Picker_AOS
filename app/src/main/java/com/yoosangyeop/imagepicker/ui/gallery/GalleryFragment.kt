@@ -14,7 +14,7 @@ import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
 import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.ui.search.SearchViewModel
-import com.yoosangyeop.imagepicker.util.SearchItemDecoration
+import com.yoosangyeop.imagepicker.util.ListItemDecoration
 import com.yoosangyeop.imagepicker.util.launchWhenStart
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,15 +46,13 @@ class GalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.itemRecyclerView.run {
-            addItemDecoration(SearchItemDecoration(FAVORITE_LIST_SPAN_COUNT, 8, true))
+            addItemDecoration(ListItemDecoration(FAVORITE_LIST_SPAN_COUNT, 8))
             layoutManager = GridLayoutManager(context, FAVORITE_LIST_SPAN_COUNT)
             adapter = favoriteAdapter
 
         }
 
-        favoriteAdapter.clickRemove = { favorite ->
-            viewModel.clickFavorite(favorite)
-        }
+        favoriteAdapter.clickRemove = viewModel::clickFavorite
 
         favoriteAdapter.clickItem = { item ->
             if (item is SearchImage.ImageDocument) {

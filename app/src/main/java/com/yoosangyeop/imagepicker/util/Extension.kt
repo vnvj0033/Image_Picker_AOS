@@ -5,13 +5,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.yoosangyeop.imagepicker.App
 import com.yoosangyeop.imagepicker.core.data.model.FavoriteDate
 import com.yoosangyeop.imagepicker.core.data.model.SearchItem
-import com.yoosangyeop.imagepicker.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 fun Int.dp() = this.toFloat().dp()
 fun Float.dp() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, App.context.resources.displayMetrics)
@@ -31,18 +29,3 @@ fun List<SearchItem>.sortedByFavoriteDate(): List<SearchItem> =
             0
         }
     })
-
-
-fun List<SearchItem>.sortByNewest() {
-    val comparator = Comparator<SearchItem> { o1, o2 ->
-        runCatching {
-            val date1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-                Locale.KOREA).parse(o1.datetime)
-            val date2 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-                Locale.KOREA).parse(o2.datetime)
-            return@Comparator date2!!.compareTo(date1)
-        }
-        return@Comparator 0
-    }
-    Collections.sort(this, comparator)
-}

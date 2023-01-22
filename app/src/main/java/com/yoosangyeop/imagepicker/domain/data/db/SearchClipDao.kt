@@ -3,7 +3,8 @@ package com.yoosangyeop.imagepicker.domain.data.db
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
+import com.yoosangyeop.core.data.model.SearchClip
+
 
 @Dao
 interface SearchClipDao {

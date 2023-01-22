@@ -2,8 +2,8 @@ package com.yoosangyeop.imagepicker.domain.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.yoosangyeop.core.data.model.SearchItem
 import com.yoosangyeop.imagepicker.domain.data.api.SearchService
-import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
 import com.yoosangyeop.imagepicker.domain.datasource.FavoriteDataSource
 import com.yoosangyeop.imagepicker.domain.datasource.HistoryDataSource
 import com.yoosangyeop.imagepicker.domain.datasource.SearchItemDataSource

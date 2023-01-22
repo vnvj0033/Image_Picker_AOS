@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:data")))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.0")

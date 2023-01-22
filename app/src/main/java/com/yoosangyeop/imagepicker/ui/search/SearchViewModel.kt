@@ -4,8 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.yoosangyeop.imagepicker.domain.data.model.FavoriteDate
-import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
+import com.yoosangyeop.core.data.model.FavoriteDate
+import com.yoosangyeop.core.data.model.SearchItem
 import com.yoosangyeop.imagepicker.domain.repository.SearchRepository
 import com.yoosangyeop.imagepicker.util.getSavableMutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel

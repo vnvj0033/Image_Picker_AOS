@@ -7,13 +7,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.yoosangyeop.core.data.model.SearchClip
+import com.yoosangyeop.core.data.model.SearchImage
+import com.yoosangyeop.core.data.model.SearchItem
 import com.yoosangyeop.imagepicker.R
-import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
-import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
-import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
 import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
 import com.yoosangyeop.imagepicker.util.DateUtil
-
 
 class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
     var clickFavorite: ((SearchItem) -> Unit)? = null
@@ -64,7 +63,7 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
                 .load(item.thumbnail_url)
                 .into(thumbnail)
 
-            binding.favoriteIcon.setOnClickListener {
+            favoriteIcon.setOnClickListener {
                 clickFavorite?.invoke(item)
             }
             thumbnail.setOnClickListener {

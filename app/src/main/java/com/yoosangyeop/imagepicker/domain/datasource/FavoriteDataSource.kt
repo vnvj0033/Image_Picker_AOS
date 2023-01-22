@@ -1,10 +1,10 @@
 package com.yoosangyeop.imagepicker.domain.datasource
 
+import com.yoosangyeop.core.data.model.SearchClip
+import com.yoosangyeop.core.data.model.SearchImage
+import com.yoosangyeop.core.data.model.SearchItem
 import com.yoosangyeop.imagepicker.domain.data.db.SearchClipDao
 import com.yoosangyeop.imagepicker.domain.data.db.SearchImageDao
-import com.yoosangyeop.imagepicker.domain.data.model.SearchClip
-import com.yoosangyeop.imagepicker.domain.data.model.SearchImage
-import com.yoosangyeop.imagepicker.domain.data.model.SearchItem
 import javax.inject.Inject
 
 

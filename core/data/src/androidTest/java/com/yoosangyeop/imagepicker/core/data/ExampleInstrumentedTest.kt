@@ -1,4 +1,4 @@
-package com.yoosangyeop.core.data
+package com.yoosangyeop.imagepicker.core.data
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

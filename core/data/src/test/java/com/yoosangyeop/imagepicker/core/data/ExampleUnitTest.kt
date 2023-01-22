@@ -1,4 +1,4 @@
-package com.yoosangyeop.core.data
+package com.yoosangyeop.imagepicker.core.data
 
 import org.junit.Test
 

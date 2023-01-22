@@ -1,12 +1,11 @@
-package com.yoosangyeop.imagepicker.domain.datasource
+package com.yoosangyeop.imagepicker.core.data.datasource
 
-import com.yoosangyeop.core.data.model.SearchClip
-import com.yoosangyeop.core.data.model.SearchImage
-import com.yoosangyeop.core.data.model.SearchItem
-import com.yoosangyeop.imagepicker.domain.data.db.SearchClipDao
-import com.yoosangyeop.imagepicker.domain.data.db.SearchImageDao
+import com.yoosangyeop.imagepicker.core.data.model.SearchClip
+import com.yoosangyeop.imagepicker.core.data.model.SearchImage
+import com.yoosangyeop.imagepicker.core.data.model.SearchItem
+import com.yoosangyeop.imagepicker.core.data.entrysource.db.SearchClipDao
+import com.yoosangyeop.imagepicker.core.data.entrysource.db.SearchImageDao
 import javax.inject.Inject
-
 
 class FavoriteDataSource @Inject constructor(
     private val clipDao: SearchClipDao,

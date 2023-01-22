@@ -2,7 +2,7 @@ package com.yoosangyeop.imagepicker.di
 
 import android.content.Context
 import androidx.room.Room
-import com.yoosangyeop.imagepicker.domain.data.db.SearchFavoriteDatabase
+import com.yoosangyeop.imagepicker.core.data.entrysource.db.SearchFavoriteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

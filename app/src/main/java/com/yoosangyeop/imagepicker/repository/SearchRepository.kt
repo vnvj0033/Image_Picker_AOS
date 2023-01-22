@@ -1,12 +1,12 @@
-package com.yoosangyeop.imagepicker.domain.repository
+package com.yoosangyeop.imagepicker.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.yoosangyeop.core.data.model.SearchItem
-import com.yoosangyeop.imagepicker.domain.data.api.SearchService
-import com.yoosangyeop.imagepicker.domain.datasource.FavoriteDataSource
-import com.yoosangyeop.imagepicker.domain.datasource.HistoryDataSource
-import com.yoosangyeop.imagepicker.domain.datasource.SearchItemDataSource
+import com.yoosangyeop.imagepicker.core.data.datasource.FavoriteDataSource
+import com.yoosangyeop.imagepicker.core.data.datasource.HistoryDataSource
+import com.yoosangyeop.imagepicker.core.data.datasource.SearchItemDataSource
+import com.yoosangyeop.imagepicker.core.data.entrysource.api.SearchService
+import com.yoosangyeop.imagepicker.core.data.model.SearchItem
 import com.yoosangyeop.imagepicker.util.sortedByFavoriteDate
 import javax.inject.Inject
 

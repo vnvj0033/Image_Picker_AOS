@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.yoosangyeop.core.data.model.FavoriteDate
-import com.yoosangyeop.core.data.model.SearchItem
-import com.yoosangyeop.imagepicker.domain.repository.SearchRepository
+import com.yoosangyeop.imagepicker.core.data.model.FavoriteDate
+import com.yoosangyeop.imagepicker.core.data.model.SearchItem
+import com.yoosangyeop.imagepicker.repository.SearchRepository
 import com.yoosangyeop.imagepicker.util.getSavableMutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,7 +33,7 @@ class SearchViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val searchItem = query.flatMapLatest {
-        searchRepository.loadSearchItem(_query.value).flow
+        searchRepository.loadSearchItem(it).flow
     }.cachedIn(viewModelScope)
 
     fun search(searchQuery: String) {

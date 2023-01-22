@@ -1,12 +1,11 @@
-package com.yoosangyeop.imagepicker.domain.datasource
+package com.yoosangyeop.imagepicker.core.data.datasource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.yoosangyeop.core.data.model.SearchClip
-import com.yoosangyeop.core.data.model.SearchImage
-import com.yoosangyeop.core.data.model.SearchItem
-import com.yoosangyeop.imagepicker.domain.data.api.SearchService
-import com.yoosangyeop.imagepicker.util.sortByNewest
+import com.yoosangyeop.imagepicker.core.data.entrysource.api.SearchService
+import com.yoosangyeop.imagepicker.core.data.model.SearchClip
+import com.yoosangyeop.imagepicker.core.data.model.SearchImage
+import com.yoosangyeop.imagepicker.core.data.model.SearchItem
 
 class SearchItemDataSource(
     private val searchService: SearchService,
@@ -33,7 +32,7 @@ class SearchItemDataSource(
         val clips = loadClips(params.loadSize, start)
 
         val items = images + clips
-        items.sortByNewest()
+//        items.sortByNewest()
 
         val nextKey =
             if (items.isEmpty()) {

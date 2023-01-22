@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.domain.data.preferences
+package com.yoosangyeop.imagepicker.core.data.entrysource.preferences
 
 import android.content.Context
 import android.content.SharedPreferences

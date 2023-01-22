@@ -15,8 +15,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yoosangyeop.core.data.model.SearchClip
-import com.yoosangyeop.core.data.model.SearchImage
+import com.yoosangyeop.imagepicker.core.data.model.SearchClip
+import com.yoosangyeop.imagepicker.core.data.model.SearchImage
 import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.util.ListItemDecoration

@@ -1,7 +1,7 @@
 package com.yoosangyeop.imagepicker.di
 
-import com.yoosangyeop.imagepicker.domain.repository.SearchRepository
-import com.yoosangyeop.imagepicker.domain.repository.SearchRepositoryImpl
+import com.yoosangyeop.imagepicker.repository.SearchRepository
+import com.yoosangyeop.imagepicker.repository.SearchRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

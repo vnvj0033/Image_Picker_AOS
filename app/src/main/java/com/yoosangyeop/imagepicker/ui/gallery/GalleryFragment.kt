@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.yoosangyeop.core.data.model.SearchClip
-import com.yoosangyeop.core.data.model.SearchImage
+import com.yoosangyeop.imagepicker.core.data.model.SearchClip
+import com.yoosangyeop.imagepicker.core.data.model.SearchImage
 import com.yoosangyeop.imagepicker.databinding.FragmentGalleryBinding
 import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.ui.search.SearchViewModel

@@ -1,9 +1,9 @@
-package com.yoosangyeop.imagepicker.domain.data.db
+package com.yoosangyeop.imagepicker.core.data.entrysource.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.yoosangyeop.core.data.model.SearchImage
+import com.yoosangyeop.imagepicker.core.data.model.SearchImage
 
 @Dao
 interface SearchImageDao {

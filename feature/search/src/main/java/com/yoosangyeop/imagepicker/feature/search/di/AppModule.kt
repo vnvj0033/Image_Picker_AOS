@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.di
+package com.yoosangyeop.imagepicker.feature.search.di
 
 import android.content.Context
 import com.yoosangyeop.imagepicker.core.data.entrysource.api.SearchService

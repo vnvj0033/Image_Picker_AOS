@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.core.data.model
+package com.yoosangyeop.imagepicker.model.search
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

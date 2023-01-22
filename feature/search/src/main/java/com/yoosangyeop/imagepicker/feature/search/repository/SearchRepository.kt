@@ -1,13 +1,13 @@
-package com.yoosangyeop.imagepicker.repository
+package com.yoosangyeop.imagepicker.feature.search.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.yoosangyeop.imagepicker.core.data.datasource.FavoriteDataSource
 import com.yoosangyeop.imagepicker.core.data.datasource.HistoryDataSource
-import com.yoosangyeop.imagepicker.core.data.datasource.SearchItemDataSource
 import com.yoosangyeop.imagepicker.core.data.entrysource.api.SearchService
-import com.yoosangyeop.imagepicker.core.data.model.SearchItem
-import com.yoosangyeop.imagepicker.util.sortedByFavoriteDate
+import com.yoosangyeop.imagepicker.feature.search.SearchItemPagingSource
+import com.yoosangyeop.imagepicker.feature.search.sortedByFavoriteDate
+import com.yoosangyeop.imagepicker.model.search.SearchItem
 import javax.inject.Inject
 
 class SearchRepositoryImpl @Inject constructor(
@@ -37,13 +37,13 @@ class SearchRepositoryImpl @Inject constructor(
     override fun loadSearchItem(query: String): Pager<Int, SearchItem> {
         return Pager(
             config = PagingConfig(
-                pageSize = SearchItemDataSource.DEFAULT_DISPLAY,
+                pageSize = SearchItemPagingSource.DEFAULT_DISPLAY,
                 enablePlaceholders = false,
-                initialLoadSize = SearchItemDataSource.DEFAULT_DISPLAY,
+                initialLoadSize = SearchItemPagingSource.DEFAULT_DISPLAY,
                 maxSize = PagingConfig.MAX_SIZE_UNBOUNDED
             ),
             pagingSourceFactory = {
-                SearchItemDataSource(searchService, query)
+                SearchItemPagingSource(searchService, query)
             }
         )
     }

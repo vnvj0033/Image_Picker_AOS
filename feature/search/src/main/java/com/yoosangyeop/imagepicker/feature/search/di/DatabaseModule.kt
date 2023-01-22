@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.di
+package com.yoosangyeop.imagepicker.feature.search.di
 
 import android.content.Context
 import androidx.room.Room

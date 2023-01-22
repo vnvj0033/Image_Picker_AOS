@@ -1,6 +1,6 @@
 package com.yoosangyeop.imagepicker.core.data
 
-import com.yoosangyeop.imagepicker.core.data.model.SearchItem
+import com.yoosangyeop.imagepicker.model.search.SearchItem
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -6,8 +6,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.yoosangyeop.imagepicker.App
-import com.yoosangyeop.imagepicker.core.data.model.FavoriteDate
-import com.yoosangyeop.imagepicker.core.data.model.SearchItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -21,11 +19,3 @@ fun LifecycleOwner.launchWhenStart(block: suspend CoroutineScope.() -> Unit) = t
 }
 
 
-fun List<SearchItem>.sortedByFavoriteDate(): List<SearchItem> =
-    this.sortedWith(compareBy {
-        if (it is FavoriteDate) {
-            it.favoriteDate
-        } else {
-            0
-        }
-    })

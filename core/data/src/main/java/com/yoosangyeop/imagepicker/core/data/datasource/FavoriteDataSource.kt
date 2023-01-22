@@ -1,10 +1,10 @@
 package com.yoosangyeop.imagepicker.core.data.datasource
 
-import com.yoosangyeop.imagepicker.core.data.model.SearchClip
-import com.yoosangyeop.imagepicker.core.data.model.SearchImage
-import com.yoosangyeop.imagepicker.core.data.model.SearchItem
 import com.yoosangyeop.imagepicker.core.data.entrysource.db.SearchClipDao
 import com.yoosangyeop.imagepicker.core.data.entrysource.db.SearchImageDao
+import com.yoosangyeop.imagepicker.model.search.SearchClip
+import com.yoosangyeop.imagepicker.model.search.SearchImage
+import com.yoosangyeop.imagepicker.model.search.SearchItem
 import javax.inject.Inject
 
 class FavoriteDataSource @Inject constructor(

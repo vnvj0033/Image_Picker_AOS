@@ -1,5 +1,11 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":core:model")
+
+
+include(":feature:search")
+
+
 include(":core:data")
 
 

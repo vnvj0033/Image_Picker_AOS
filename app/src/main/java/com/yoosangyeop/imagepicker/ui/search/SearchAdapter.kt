@@ -7,11 +7,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.yoosangyeop.imagepicker.core.data.model.SearchClip
-import com.yoosangyeop.imagepicker.core.data.model.SearchImage
-import com.yoosangyeop.imagepicker.core.data.model.SearchItem
 import com.yoosangyeop.imagepicker.R
 import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
+import com.yoosangyeop.imagepicker.model.search.SearchClip
+import com.yoosangyeop.imagepicker.model.search.SearchImage
+import com.yoosangyeop.imagepicker.model.search.SearchItem
 import com.yoosangyeop.imagepicker.util.DateUtil
 
 class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {

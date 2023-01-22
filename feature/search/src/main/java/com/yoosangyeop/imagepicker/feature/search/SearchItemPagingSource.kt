@@ -1,14 +1,14 @@
-package com.yoosangyeop.imagepicker.core.data.datasource
+package com.yoosangyeop.imagepicker.feature.search
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yoosangyeop.imagepicker.core.data.entrysource.api.SearchService
-import com.yoosangyeop.imagepicker.core.data.model.SearchClip
-import com.yoosangyeop.imagepicker.core.data.model.SearchImage
-import com.yoosangyeop.imagepicker.core.data.model.SearchItem
 import com.yoosangyeop.imagepicker.core.data.sortByNewest
+import com.yoosangyeop.imagepicker.model.search.SearchClip
+import com.yoosangyeop.imagepicker.model.search.SearchImage
+import com.yoosangyeop.imagepicker.model.search.SearchItem
 
-class SearchItemDataSource(
+class SearchItemPagingSource(
     private val searchService: SearchService,
     private val query: String
 ) : PagingSource<Int, SearchItem>() {

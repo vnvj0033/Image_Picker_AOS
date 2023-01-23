@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.ui.view
+package com.yoosangyeop.imagepicker.feature.search.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,8 +10,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
 
-
-class PinchImageView : AppCompatImageView {
+internal class PinchImageView : AppCompatImageView {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)

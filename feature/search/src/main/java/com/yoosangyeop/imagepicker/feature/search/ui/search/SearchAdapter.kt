@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.ui.search
+package com.yoosangyeop.imagepicker.feature.search.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,14 +7,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.yoosangyeop.imagepicker.R
-import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
+import com.yoosangyeop.imagepicker.feature.search.R
+import com.yoosangyeop.imagepicker.feature.search.databinding.ItemSearchBinding
+import com.yoosangyeop.imagepicker.feature.search.util.DateUtil
 import com.yoosangyeop.imagepicker.model.search.SearchClip
 import com.yoosangyeop.imagepicker.model.search.SearchImage
 import com.yoosangyeop.imagepicker.model.search.SearchItem
-import com.yoosangyeop.imagepicker.util.DateUtil
 
-class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
+internal class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
     var clickFavorite: ((SearchItem) -> Unit)? = null
     var clickItem: ((SearchItem) -> Unit)? = null
     private var favorites: List<SearchItem> = listOf()
@@ -95,6 +95,7 @@ class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemView
 
     }
 }
+
 
 private val comparator = object : DiffUtil.ItemCallback<SearchItem>() {
     override fun areItemsTheSame(oldItem: SearchItem, newItem: SearchItem): Boolean {

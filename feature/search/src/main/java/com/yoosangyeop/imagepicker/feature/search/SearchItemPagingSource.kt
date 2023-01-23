@@ -8,7 +8,7 @@ import com.yoosangyeop.imagepicker.model.search.SearchClip
 import com.yoosangyeop.imagepicker.model.search.SearchImage
 import com.yoosangyeop.imagepicker.model.search.SearchItem
 
-class SearchItemPagingSource(
+internal class SearchItemPagingSource(
     private val searchService: SearchService,
     private val query: String
 ) : PagingSource<Int, SearchItem>() {

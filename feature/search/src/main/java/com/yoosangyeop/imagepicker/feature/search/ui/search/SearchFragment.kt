@@ -1,9 +1,8 @@
-package com.yoosangyeop.imagepicker.ui.search
+package com.yoosangyeop.imagepicker.feature.search.ui.search
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +14,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yoosangyeop.imagepicker.databinding.FragmentSearchBinding
+import com.yoosangyeop.imagepicker.feature.search.databinding.FragmentSearchBinding
+import com.yoosangyeop.imagepicker.feature.search.ui.dialog.PinChImageDialogFragment
+import com.yoosangyeop.imagepicker.feature.search.util.ListItemDecoration
+import com.yoosangyeop.imagepicker.feature.search.util.launchWhenStart
 import com.yoosangyeop.imagepicker.model.search.SearchClip
 import com.yoosangyeop.imagepicker.model.search.SearchImage
-import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
-import com.yoosangyeop.imagepicker.util.ListItemDecoration
-import com.yoosangyeop.imagepicker.util.launchWhenStart
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val SEARCH_LIST_SPAN_COUNT = 3
@@ -130,7 +129,7 @@ class SearchFragment : Fragment() {
 
         launchWhenStart {
             viewModel.query.collect { query ->
-                Log.d("testsyyoo", "query : $query")
+                android.util.Log.d("testsyyoo", "query : $query")
             }
         }
 

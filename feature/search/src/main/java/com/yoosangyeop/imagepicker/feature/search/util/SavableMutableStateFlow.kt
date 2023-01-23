@@ -1,9 +1,9 @@
-package com.yoosangyeop.imagepicker.util
+package com.yoosangyeop.imagepicker.feature.search.util
 
 import androidx.lifecycle.SavedStateHandle
 import kotlinx.coroutines.flow.StateFlow
 
-class SavableMutableStateFlow<T>(
+internal class SavableMutableStateFlow<T>(
     private val savedStateHandle: SavedStateHandle,
     private val key: String,
     initialValue: T
@@ -17,5 +17,5 @@ class SavableMutableStateFlow<T>(
     fun asStateFlow(): StateFlow<T> = state
 }
 
-fun <T> SavedStateHandle.getSavableMutableStateFlow(key: String, initialValue: T) =
+internal fun <T> SavedStateHandle.getSavableMutableStateFlow(key: String, initialValue: T) =
     SavableMutableStateFlow(this, key, initialValue)

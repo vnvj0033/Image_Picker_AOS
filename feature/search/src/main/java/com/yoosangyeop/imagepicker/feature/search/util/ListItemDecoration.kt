@@ -1,15 +1,12 @@
-package com.yoosangyeop.imagepicker.util
+package com.yoosangyeop.imagepicker.feature.search.util
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-private const val DEFAULT_SPAN_COUNT = 2
-private const val DEFAULT_SPACING = 4
-
-class ListItemDecoration(
-    private val spanCount: Int = DEFAULT_SPAN_COUNT,
-    private val spacing: Int = DEFAULT_SPACING,
+internal class ListItemDecoration(
+    private val spanCount: Int = 3,
+    private val spacing: Int = 8,
     private val includeEdge: Boolean = true
 ) : RecyclerView.ItemDecoration() {
 

@@ -1,8 +1,9 @@
-package com.yoosangyeop.imagepicker.ui.dialog
+package com.yoosangyeop.imagepicker.feature.search.ui.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +16,9 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
-import com.yoosangyeop.imagepicker.ui.view.PinchImageView
-import com.yoosangyeop.imagepicker.util.dp
+import com.yoosangyeop.imagepicker.feature.search.view.PinchImageView
 
-class PinChImageDialogFragment : DialogFragment {
+internal class PinChImageDialogFragment : DialogFragment {
 
     constructor() : super()
     constructor(url: String) : super() {
@@ -43,9 +43,10 @@ class PinChImageDialogFragment : DialogFragment {
             layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
         }
 
+        val dp16 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics)
         closeView = ImageView(requireContext()).apply {
             layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
-                setPadding(16.dp().toInt())
+                setPadding(dp16.toInt())
             }
             setImageResource(android.R.drawable.ic_menu_close_clear_cancel)
         }

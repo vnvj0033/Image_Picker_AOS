@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.ui.gallery
+package com.yoosangyeop.imagepicker.feature.search.ui.gallery
 
 import android.content.Intent
 import android.net.Uri
@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.yoosangyeop.imagepicker.databinding.FragmentGalleryBinding
+import com.yoosangyeop.imagepicker.feature.search.databinding.FragmentGalleryBinding
+import com.yoosangyeop.imagepicker.feature.search.ui.dialog.PinChImageDialogFragment
+import com.yoosangyeop.imagepicker.feature.search.ui.search.SearchViewModel
+import com.yoosangyeop.imagepicker.feature.search.util.ListItemDecoration
+import com.yoosangyeop.imagepicker.feature.search.util.launchWhenStart
 import com.yoosangyeop.imagepicker.model.search.SearchClip
 import com.yoosangyeop.imagepicker.model.search.SearchImage
-import com.yoosangyeop.imagepicker.ui.dialog.PinChImageDialogFragment
-import com.yoosangyeop.imagepicker.ui.search.SearchViewModel
-import com.yoosangyeop.imagepicker.util.ListItemDecoration
-import com.yoosangyeop.imagepicker.util.launchWhenStart
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val FAVORITE_LIST_SPAN_COUNT = 2

@@ -1,23 +1,25 @@
-package com.yoosangyeop.imagepicker.ui.search
+package com.yoosangyeop.imagepicker.feature.search.ui.search
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.yoosangyeop.imagepicker.feature.search.repository.SearchRepository
+import com.yoosangyeop.imagepicker.feature.search.util.getSavableMutableStateFlow
 import com.yoosangyeop.imagepicker.model.search.FavoriteDate
 import com.yoosangyeop.imagepicker.model.search.SearchItem
-import com.yoosangyeop.imagepicker.util.getSavableMutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val KEY_NAME_QUERY = "KEY_NAME_QUERY"
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
+internal class SearchViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val searchRepository: SearchRepository
 ) : ViewModel() {

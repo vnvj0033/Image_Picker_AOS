@@ -1,9 +1,9 @@
-package com.yoosangyeop.imagepicker.util
+package com.yoosangyeop.imagepicker.feature.search.util
 
 import java.text.SimpleDateFormat
 import java.util.*
 
-object DateUtil {
+internal object DateUtil {
 
     fun changeDatePattern(date: String, fromPattern: String, toPattern: String): String {
         return runCatching {

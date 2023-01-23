@@ -6,7 +6,7 @@ import com.yoosangyeop.imagepicker.core.data.datasource.FavoriteDataSource
 import com.yoosangyeop.imagepicker.core.data.datasource.HistoryDataSource
 import com.yoosangyeop.imagepicker.core.data.entrysource.api.SearchService
 import com.yoosangyeop.imagepicker.feature.search.SearchItemPagingSource
-import com.yoosangyeop.imagepicker.feature.search.sortedByFavoriteDate
+import com.yoosangyeop.imagepicker.feature.search.util.sortedByFavoriteDate
 import com.yoosangyeop.imagepicker.model.search.SearchItem
 import javax.inject.Inject
 
@@ -35,13 +35,13 @@ class SearchRepositoryImpl @Inject constructor(
     override suspend fun removeFavorite(item: SearchItem) = favoriteDataSource.removeFavorite(item)
 
     override fun loadSearchItem(query: String): Pager<Int, SearchItem> {
-        val DEFAULT_DISPLAY = 30
+        val defaultDisplay = 30
 
         return Pager(
             config = PagingConfig(
-                pageSize = DEFAULT_DISPLAY,
+                pageSize = defaultDisplay,
                 enablePlaceholders = false,
-                initialLoadSize = DEFAULT_DISPLAY,
+                initialLoadSize = defaultDisplay,
                 maxSize = PagingConfig.MAX_SIZE_UNBOUNDED
             ),
             pagingSourceFactory = {

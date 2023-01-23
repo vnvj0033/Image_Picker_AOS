@@ -55,26 +55,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    // ui controller ktx
-    implementation("androidx.activity:activity-ktx:1.7.0-alpha03")
-    implementation("androidx.fragment:fragment-ktx:1.6.0-alpha04")
-
     // Hilt
     implementation("com.google.dagger:hilt-android:2.44.2")
     kapt("com.google.dagger:hilt-compiler:2.44.2")
-
-    // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha04")
-
-    // Paging
-    implementation("androidx.paging:paging-runtime-ktx:3.2.0-alpha03")
-
-    // Glide
-    implementation("com.github.bumptech.glide:glide:4.14.2")
-    kapt("com.github.bumptech.glide:compiler:4.14.2")
-
-    // room
-    implementation("androidx.room:room-runtime:2.5.0")
-    annotationProcessor("androidx.room:room-compiler:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0")
 }

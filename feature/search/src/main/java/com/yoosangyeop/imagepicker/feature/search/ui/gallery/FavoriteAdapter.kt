@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.ui.gallery
+package com.yoosangyeop.imagepicker.feature.search.ui.gallery
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.yoosangyeop.imagepicker.R
-import com.yoosangyeop.imagepicker.databinding.ItemSearchBinding
+import com.yoosangyeop.imagepicker.feature.search.R
+import com.yoosangyeop.imagepicker.feature.search.databinding.ItemSearchBinding
 import com.yoosangyeop.imagepicker.model.search.SearchItem
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {

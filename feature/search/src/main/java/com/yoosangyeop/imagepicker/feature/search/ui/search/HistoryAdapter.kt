@@ -1,12 +1,12 @@
-package com.yoosangyeop.imagepicker.ui.search
+package com.yoosangyeop.imagepicker.feature.search.ui.search
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.yoosangyeop.imagepicker.databinding.ItemHistoryBinding
+import com.yoosangyeop.imagepicker.feature.search.databinding.ItemHistoryBinding
 
-class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
+internal class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
     private var history = listOf<String>()
     var clickRemove : ((String)->Unit)? = null
     var clickItem :  ((String)->Unit)? = null

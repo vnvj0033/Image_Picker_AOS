@@ -15,7 +15,6 @@ class SearchItemPagingSource(
 
     companion object {
         private const val DEFAULT_START = 1
-        const val DEFAULT_DISPLAY = 30
     }
 
     override fun getRefreshKey(state: PagingState<Int, SearchItem>): Int? {
@@ -26,7 +25,7 @@ class SearchItemPagingSource(
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> = try{
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> = try {
         val start = params.key ?: DEFAULT_START
 
         val images = loadImages(params.loadSize, start)

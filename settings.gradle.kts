@@ -1,14 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":core:model")
-
-
-include(":feature:search")
-
-
-include(":core:data")
-
-
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -25,3 +16,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Image picker"
 include(":app")
+include(":core:model")
+include(":feature:search")
+include(":core:data")

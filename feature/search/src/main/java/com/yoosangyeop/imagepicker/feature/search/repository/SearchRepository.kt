@@ -35,11 +35,13 @@ class SearchRepositoryImpl @Inject constructor(
     override suspend fun removeFavorite(item: SearchItem) = favoriteDataSource.removeFavorite(item)
 
     override fun loadSearchItem(query: String): Pager<Int, SearchItem> {
+        val DEFAULT_DISPLAY = 30
+
         return Pager(
             config = PagingConfig(
-                pageSize = SearchItemPagingSource.DEFAULT_DISPLAY,
+                pageSize = DEFAULT_DISPLAY,
                 enablePlaceholders = false,
-                initialLoadSize = SearchItemPagingSource.DEFAULT_DISPLAY,
+                initialLoadSize = DEFAULT_DISPLAY,
                 maxSize = PagingConfig.MAX_SIZE_UNBOUNDED
             ),
             pagingSourceFactory = {

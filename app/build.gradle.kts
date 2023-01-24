@@ -44,8 +44,8 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":feature:search")))
-    implementation(project(mapOf("path" to ":core:model")))
+    implementation(project(":feature:search"))
+    implementation(project(":core:model"))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.0")

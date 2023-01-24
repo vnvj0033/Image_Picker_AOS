@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="com.yoosangyeop.imagepicker.feature.search.ui.gallery.SearchItemBindingAdapter"/>
+        <variable
+            name="searchitem"
+            type="com.yoosangyeop.imagepicker.model.search.SearchItem" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -20,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
+                search:setIconType="@{searchitem}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@drawable/ic_image" />
@@ -31,6 +39,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:contentDescription="@null"
+                search:setThumbnail="@{searchitem}"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +61,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold|italic"
                     android:textSize="12sp"
+                    search:setDataTime="@{searchitem}"
                     tools:text="23.01.01" />
                 <View
                     android:layout_width="0dp"

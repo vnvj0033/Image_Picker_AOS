@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.yoosangyeop.imagepicker.feature.search.R
 import com.yoosangyeop.imagepicker.feature.search.databinding.ItemSearchBinding
 import com.yoosangyeop.imagepicker.model.search.SearchItem
@@ -41,14 +39,10 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     inner class FavoriteViewHolder(private val binding: ItemSearchBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(favorites: SearchItem) = with(binding){
-            typeIcon.isGone = true
+
+            searchitem = favorites
+
             dateTime.isGone = true
-
-            Glide.with(root.context)
-                .load(favorites.thumbnail_url)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(thumbnail)
-
             favoriteIcon.setImageResource(R.drawable.ic_favorite_on)
 
             favoriteIcon.setOnClickListener {

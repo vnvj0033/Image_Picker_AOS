@@ -2,16 +2,11 @@ package com.yoosangyeop.imagepicker.feature.search.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isGone
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.yoosangyeop.imagepicker.feature.search.R
 import com.yoosangyeop.imagepicker.feature.search.databinding.ItemSearchBinding
-import com.yoosangyeop.imagepicker.feature.search.util.DateUtil
-import com.yoosangyeop.imagepicker.model.search.SearchClip
-import com.yoosangyeop.imagepicker.model.search.SearchImage
 import com.yoosangyeop.imagepicker.model.search.SearchItem
 
 internal class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.SearchItemViewHolder>(comparator) {
@@ -59,9 +54,7 @@ internal class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.Searc
 
         fun bind(item: SearchItem) = with(binding) {
 
-            Glide.with(root.context)
-                .load(item.thumbnail_url)
-                .into(thumbnail)
+            searchitem = item
 
             favoriteIcon.setOnClickListener {
                 clickFavorite?.invoke(item)
@@ -76,21 +69,6 @@ internal class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.Searc
             } else {
                 favoriteIcon.setImageResource(R.drawable.ic_favorite_off)
             }
-
-            when (item) {
-                is SearchImage.ImageDocument -> typeIcon.setImageResource(R.drawable.ic_image)
-                is SearchClip.ClipDocument -> typeIcon.setImageResource(R.drawable.ic_video)
-                else -> typeIcon.isGone
-            }
-
-
-            val date = DateUtil.changeDatePattern(
-                item.datetime,
-                "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-                "yyyy.MM.dd\nHH:mm:ss"
-            )
-            dateTime.text = date
-
         }
 
     }

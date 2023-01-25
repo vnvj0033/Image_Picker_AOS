@@ -16,27 +16,28 @@ android {
 dependencies {
     implementation(project(":core:model"))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.0")
-    implementation("com.google.android.material:material:1.7.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Libs.androidxCore)
+    implementation(Libs.androidxAppcompat)
+    implementation(Libs.material)
+    implementation(Libs.constraintlayout)
+    testImplementation(Libs.junit)
+    androidTestImplementation(Libs.junitExt)
+    androidTestImplementation(Libs.espresso)
 
     // room
-    implementation("androidx.room:room-runtime:2.5.0")
-    annotationProcessor("androidx.room:room-compiler:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0")
+    implementation(Libs.room)
+    annotationProcessor(Libs.roomCompiler)
+    kapt(Libs.roomCompiler)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation(Libs.retrofit)
+    implementation(Libs.gsonConverter)
+    implementation(Libs.okhttp)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.44.2")
-    kapt("com.google.dagger:hilt-compiler:2.44.2")
+    implementation(Libs.hilt)
+    kapt(Libs.hiltCompiler)
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:3.2.0-alpha03")
+    implementation(Libs.paging)
 }

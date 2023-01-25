@@ -16,12 +16,12 @@ android {
 dependencies {
 
     // room
-    implementation("androidx.room:room-runtime:2.5.0")
-    annotationProcessor("androidx.room:room-compiler:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0")
+    implementation(Libs.room)
+    annotationProcessor(Libs.roomCompiler)
+    kapt(Libs.roomCompiler)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation(Libs.retrofit)
+    implementation(Libs.gsonConverter)
+    implementation(Libs.okhttp)
 }

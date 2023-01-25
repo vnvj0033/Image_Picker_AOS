@@ -31,6 +31,14 @@ object Libs {
     const val okhttp = "com.squareup.okhttp3:logging-interceptor:4.10.0"
 
     const val paging = "androidx.paging:paging-runtime-ktx:3.2.0-alpha03"
+
+    const val glide = "com.github.bumptech.glide:glide:4.14.2"
+    const val glideCompiler = "com.github.bumptech.glide:compiler:4.14.2"
+
+    const val activityKtx = "androidx.activity:activity-ktx:1.7.0-alpha03"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:1.6.0-alpha04"
+
+    const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha04"
 }
 
 object TestLibs {

@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.feature.search
+package com.yoosangyeop.imagepicker.feature.search.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

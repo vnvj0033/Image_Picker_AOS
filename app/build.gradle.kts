@@ -47,15 +47,15 @@ dependencies {
     implementation(project(":feature:search"))
     implementation(project(":core:model"))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.0")
-    implementation("com.google.android.material:material:1.7.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Libs.androidxCore)
+    implementation(Libs.androidxAppcompat)
+    implementation(Libs.material)
+    implementation(Libs.constraintlayout)
+    testImplementation(Libs.junit)
+    androidTestImplementation(Libs.junitExt)
+    androidTestImplementation(Libs.espresso)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.44.2")
-    kapt("com.google.dagger:hilt-compiler:2.44.2")
+    implementation(Libs.hilt)
+    kapt(Libs.hiltCompiler)
 }

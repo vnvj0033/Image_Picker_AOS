@@ -5,7 +5,6 @@ import androidx.paging.PagingConfig
 import com.yoosangyeop.imagepicker.core.data.datasource.FavoriteDataSource
 import com.yoosangyeop.imagepicker.core.data.datasource.HistoryDataSource
 import com.yoosangyeop.imagepicker.core.data.entrysource.api.SearchService
-import com.yoosangyeop.imagepicker.feature.search.SearchItemPagingSource
 import com.yoosangyeop.imagepicker.feature.search.util.sortedByFavoriteDate
 import com.yoosangyeop.imagepicker.model.search.SearchItem
 import javax.inject.Inject

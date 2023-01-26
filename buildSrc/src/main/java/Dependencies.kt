@@ -1,13 +1,14 @@
 object Apps {
+    const val compileSdk = 33
+    const val minSdk = 24
+    const val targetSdk = 33
+    const val versionCode = 1
+    const val versionName = "0.0.1"
 
 }
 
-object Versions {
-//    const val gradle = "3.5.2"
-//    const val kotlin = "1.3.50"
-//    const val appcompat = "1.0.2"
-//
-//    const val junit = "4.12"
+object Ver {
+    const val hilt = "2.44.2"
 }
 
 object Libs {
@@ -20,8 +21,8 @@ object Libs {
     const val junitExt = "androidx.test.ext:junit:1.1.5"
     const val espresso = "androidx.test.espresso:espresso-core:3.5.1"
 
-    const val hilt = "com.google.dagger:hilt-android:2.44.2"
-    const val hiltCompiler = "com.google.dagger:hilt-compiler:2.44.2"
+    const val hilt = "com.google.dagger:hilt-android:${Ver.hilt}"
+    const val hiltCompiler = "com.google.dagger:hilt-compiler:${Ver.hilt}"
 
     const val room ="androidx.room:room-runtime:2.5.0"
     const val roomCompiler = "androidx.room:room-compiler:2.5.0"
@@ -44,8 +45,3 @@ object Libs {
 object TestLibs {
 //    const val junit = "junit:junit:${Versions.junit}"
 }
-
-internal val composeOfficialDependencies = listOf(
-    Libs.androidxCore,
-    Libs.androidxAppcompat
-)

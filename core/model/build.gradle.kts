@@ -6,10 +6,10 @@ plugins {
 
 android {
     namespace = "com.yoosangyeop.imagepicker.model"
-    compileSdk = 33
+    compileSdk = Apps.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = Apps.minSdk
     }
 }
 

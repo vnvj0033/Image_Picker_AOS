@@ -7,10 +7,10 @@ plugins {
 
 android {
     namespace = "com.yoosangyeop.imagepicker.feature.search"
-    compileSdk = 33
+    compileSdk = Apps.compileSdk
 
     defaultConfig {
-        minSdk = 24
+        minSdk = Apps.minSdk
     }
 
     dataBinding {

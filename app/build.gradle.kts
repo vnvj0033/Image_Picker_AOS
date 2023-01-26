@@ -9,14 +9,14 @@ plugins {
 
 android {
     namespace = "com.yoosangyeop.imagepicker"
-    compileSdk = 33
+    compileSdk = Apps.targetSdk
 
     defaultConfig {
         applicationId = "com.yoosangyeop.imagepicker"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "0.0.1"
+        minSdk = Apps.minSdk
+        targetSdk = Apps.targetSdk
+        versionCode = Apps.versionCode
+        versionName = Apps.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

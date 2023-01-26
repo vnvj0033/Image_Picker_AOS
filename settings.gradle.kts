@@ -16,6 +16,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Image picker"
 include(":app")
-include(":core:model")
 include(":feature:search")
+include(":core:model")
 include(":core:data")

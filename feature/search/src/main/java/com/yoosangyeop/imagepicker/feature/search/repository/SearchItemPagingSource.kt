@@ -7,6 +7,8 @@ import com.yoosangyeop.imagepicker.core.data.sortByNewest
 import com.yoosangyeop.imagepicker.model.search.SearchClip
 import com.yoosangyeop.imagepicker.model.search.SearchImage
 import com.yoosangyeop.imagepicker.model.search.SearchItem
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 
 internal class SearchItemPagingSource(
     private val searchService: SearchService,
@@ -15,6 +17,8 @@ internal class SearchItemPagingSource(
 
     companion object {
         private const val DEFAULT_START = 1
+        private const val MAX_SIZE_IMAGE_PAGE = 50
+        private const val MAX_SIZE_CLIP_PAGE = 15
     }
 
     override fun getRefreshKey(state: PagingState<Int, SearchItem>): Int? {
@@ -28,10 +32,16 @@ internal class SearchItemPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> = try {
         val start = params.key ?: DEFAULT_START
 
-        val images = loadImages(params.loadSize, start)
-        val clips = loadClips(params.loadSize, start)
+        val items = coroutineScope {
+            val images = async {
+                loadImages(params.loadSize, start)
+            }
+            val clips = async {
+                loadClips(params.loadSize, start)
+            }
 
-        val items = images + clips
+            images.await() + clips.await()
+        }
         items.sortByNewest()
 
         val nextKey =
@@ -66,7 +76,7 @@ internal class SearchItemPagingSource(
             page = start
         )
 
-        if (images.meta.is_end || start > 50) {
+        if (images.meta.is_end || start >= MAX_SIZE_IMAGE_PAGE) {
             isEndPageOfImages = true
         }
 
@@ -83,7 +93,7 @@ internal class SearchItemPagingSource(
             page = start,
         )
 
-        if (clips.meta.is_end || start > 15) {
+        if (clips.meta.is_end || start >= MAX_SIZE_CLIP_PAGE) {
             isEndPageOfClips = true
         }
 

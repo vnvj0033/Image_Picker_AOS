@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoosangyeop.imagepicker.feature.search.databinding.FragmentSearchBinding
@@ -90,6 +92,14 @@ class SearchFragment : Fragment() {
 
 
     private fun initEvent() = with(binding) {
+        searchAdapter.addLoadStateListener { loadStates ->
+            when(loadStates.append) {
+                is LoadState.Error ->
+                    Toast.makeText(context, "연결에 실패하였습니다. 잠시후 다시 시도해 주세요", Toast.LENGTH_SHORT).show()
+                else -> { }
+            }
+        }
+
         // 검색 클릭
         searchButton.setOnClickListener {
             val query = searchEditText.text ?: ""

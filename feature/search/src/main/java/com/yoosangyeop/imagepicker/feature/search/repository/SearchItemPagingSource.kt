@@ -17,8 +17,8 @@ internal class SearchItemPagingSource(
 
     companion object {
         private const val DEFAULT_START = 1
-        private const val MAX_SIZE_IMAGE_PAGE = 50
-        private const val MAX_SIZE_CLIP_PAGE = 15
+        private const val MAX_SIZE_OF_IMAGE_PAGE = 50
+        private const val MAX_SIZE_OF_CLIP_PAGE = 15
     }
 
     override fun getRefreshKey(state: PagingState<Int, SearchItem>): Int? {
@@ -29,40 +29,42 @@ internal class SearchItemPagingSource(
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> = try {
-        val start = params.key ?: DEFAULT_START
-
-        val items = coroutineScope {
-            val images = async {
-                loadImages(params.loadSize, start)
-            }
-            val clips = async {
-                loadClips(params.loadSize, start)
-            }
-
-            images.await() + clips.await()
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchItem> {
+        if (query.isEmpty()) {
+            return LoadResult.Page(emptyList(), null, null)
         }
-        items.sortByNewest()
 
-        val nextKey =
-            if (items.isEmpty()) {
-                null
-            } else {
-                start + 1
+        return try {
+            LoadResult.Page(emptyList(), null, null)
+
+            val start = params.key ?: DEFAULT_START
+
+            val items = coroutineScope {
+                val images = async { loadImages(params.loadSize, start) }
+                val clips = async { loadClips(params.loadSize, start) }
+                images.await() + clips.await()
             }
+            items.sortByNewest()
 
-        val prevKey =
-            if (start == DEFAULT_START) {
-                null
-            } else {
-                start - 1
-            }
+            val nextKey =
+                if (items.isEmpty()) {
+                    null
+                } else {
+                    start + 1
+                }
 
-        LoadResult.Page(items, prevKey, nextKey)
-    } catch (e: Exception) {
-        LoadResult.Error(e)
+            val prevKey =
+                if (start == DEFAULT_START) {
+                    null
+                } else {
+                    start - 1
+                }
+
+            LoadResult.Page(items, prevKey, nextKey)
+        } catch (e: Exception) {
+            LoadResult.Error(e)
+        }
     }
-
 
     private var isEndPageOfImages = false
     private var isEndPageOfClips = false
@@ -76,7 +78,7 @@ internal class SearchItemPagingSource(
             page = start
         )
 
-        if (images.meta.is_end || start >= MAX_SIZE_IMAGE_PAGE) {
+        if (images.meta.is_end || start >= MAX_SIZE_OF_IMAGE_PAGE) {
             isEndPageOfImages = true
         }
 
@@ -93,7 +95,7 @@ internal class SearchItemPagingSource(
             page = start,
         )
 
-        if (clips.meta.is_end || start >= MAX_SIZE_CLIP_PAGE) {
+        if (clips.meta.is_end || start >= MAX_SIZE_OF_CLIP_PAGE) {
             isEndPageOfClips = true
         }
 

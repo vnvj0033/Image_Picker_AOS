@@ -77,7 +77,7 @@ internal class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.Searc
 
 private val comparator = object : DiffUtil.ItemCallback<SearchItem>() {
     override fun areItemsTheSame(oldItem: SearchItem, newItem: SearchItem): Boolean {
-        return oldItem.thumbnail_url == newItem.thumbnail_url
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: SearchItem, newItem: SearchItem): Boolean {

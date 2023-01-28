@@ -26,6 +26,7 @@ dependencies {
     implementation(Libs.androidxAppcompat)
     implementation(Libs.material)
     implementation(Libs.constraintlayout)
+    implementation(project(mapOf("path" to ":core:repository")))
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.junitExt)
     androidTestImplementation(Libs.espresso)

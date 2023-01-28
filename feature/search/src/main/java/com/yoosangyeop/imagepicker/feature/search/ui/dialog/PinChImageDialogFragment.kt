@@ -16,7 +16,7 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
-import com.yoosangyeop.imagepicker.feature.search.view.PinchImageView
+import com.yoosangyeop.imagepicker.feature.search.ui.view.PinchImageView
 
 internal class PinChImageDialogFragment : DialogFragment {
 

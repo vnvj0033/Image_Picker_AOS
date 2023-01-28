@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.yoosangyeop.imagepicker.feature.search.repository.SearchRepository
+import com.yoosangyeop.imagepicker.core.repository.SearchRepository
 import com.yoosangyeop.imagepicker.feature.search.util.getSavableMutableStateFlow
 import com.yoosangyeop.imagepicker.model.search.FavoriteDate
 import com.yoosangyeop.imagepicker.model.search.SearchItem

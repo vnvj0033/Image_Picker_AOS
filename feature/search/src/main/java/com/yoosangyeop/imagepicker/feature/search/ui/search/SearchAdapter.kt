@@ -28,20 +28,22 @@ internal class SearchAdapter : PagingDataAdapter<SearchItem, SearchAdapter.Searc
         holder.bind(item)
     }
 
+    @Suppress("IMPLICIT_CAST_TO_ANY")
     fun updateFavorites(newFavorites: List<SearchItem>) {
         val favorite = if (newFavorites.size > favorites.size) {
             newFavorites - favorites.toSet()
         } else if (favorites.size > newFavorites.size) {
             favorites - newFavorites.toSet()
         } else {
-            return
-        }
+            null
+        }?.firstOrNull() ?: return
+
         favorites = newFavorites
 
         for (i in 0 until itemCount) {
             val item = getItem(i) ?: continue
 
-            if (item == favorite.first()) {
+            if (item == favorite) {
                 notifyItemChanged(i)
                 break
             }

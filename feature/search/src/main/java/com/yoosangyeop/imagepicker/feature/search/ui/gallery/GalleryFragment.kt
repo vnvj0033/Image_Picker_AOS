@@ -26,7 +26,9 @@ class GalleryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: SearchViewModel by activityViewModels()
-    private val favoriteAdapter = FavoriteAdapter()
+    private val favoriteAdapter = FavoriteAdapter().apply {
+        setHasStableIds(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

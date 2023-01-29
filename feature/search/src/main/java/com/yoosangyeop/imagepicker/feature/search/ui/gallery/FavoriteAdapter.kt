@@ -30,6 +30,9 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
     override fun getItemCount(): Int = favorites.size
 
+    override fun getItemId(position: Int): Long = favorites[position].hashCode().toLong()
+
+
     @SuppressLint("NotifyDataSetChanged")
     fun updateFavorites(newFavorites: List<SearchItem>) {
         favorites = newFavorites

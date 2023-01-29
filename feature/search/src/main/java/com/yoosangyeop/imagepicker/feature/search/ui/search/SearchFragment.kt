@@ -138,11 +138,11 @@ class SearchFragment : Fragment() {
 
     private fun initFlow() = with(viewLifecycleOwner.lifecycleScope) {
 
-        launchWhenStart {
-            viewModel.query.collect { query ->
-                android.util.Log.d("testsyyoo", "query : $query")
-            }
-        }
+//        launchWhenStart {
+//            viewModel.query.collect { query ->
+//                android.util.Log.d("testsyyoo", "query : $query")
+//            }
+//        }
 
         launchWhenStart {
             viewModel.searchHistory.collect { history ->

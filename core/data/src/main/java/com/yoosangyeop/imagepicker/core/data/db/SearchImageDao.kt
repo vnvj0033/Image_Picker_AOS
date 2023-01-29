@@ -12,7 +12,7 @@ interface SearchImageDao {
     fun getAll() : List<SearchImage.ImageDocument>
 
     @Insert
-    fun insert(clip: SearchImage.ImageDocument)
+    fun insert(image: SearchImage.ImageDocument)
 
     @Query("DELETE FROM ImageDocument WHERE thumbnail_url = :url AND datetime = :datetime")
     fun delete(url: String, datetime: String)

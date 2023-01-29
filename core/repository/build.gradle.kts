@@ -19,16 +19,12 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:datasource"))
 
-    implementation(Libs.androidxCore)
-    implementation(Libs.androidxAppcompat)
-    implementation(Libs.material)
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.junitExt)
     androidTestImplementation(Libs.espresso)
 
     // Paging
     implementation(Libs.paging)
-
 
     // Hilt
     implementation(Libs.hilt)

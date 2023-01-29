@@ -8,6 +8,9 @@ object Apps {
 }
 
 object Ver {
+    const val gradle = "7.4.0"
+    const val kotlin = "1.7.22"
+
     const val hilt = "2.44.2"
 }
 

@@ -18,9 +18,6 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:model"))
 
-    implementation(Libs.androidxCore)
-    implementation(Libs.androidxAppcompat)
-    implementation(Libs.material)
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.junitExt)
     androidTestImplementation(Libs.espresso)

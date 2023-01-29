@@ -21,12 +21,12 @@ android {
 dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:model"))
+    implementation(project(":core:repository"))
 
     implementation(Libs.androidxCore)
     implementation(Libs.androidxAppcompat)
     implementation(Libs.material)
     implementation(Libs.constraintlayout)
-    implementation(project(mapOf("path" to ":core:repository")))
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.junitExt)
     androidTestImplementation(Libs.espresso)

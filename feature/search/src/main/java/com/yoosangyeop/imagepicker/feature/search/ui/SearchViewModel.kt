@@ -1,4 +1,4 @@
-package com.yoosangyeop.imagepicker.feature.search.ui.search
+package com.yoosangyeop.imagepicker.feature.search.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

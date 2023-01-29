@@ -16,10 +16,6 @@ android {
 dependencies {
     implementation(project(":core:model"))
 
-    implementation(Libs.androidxCore)
-    implementation(Libs.androidxAppcompat)
-    implementation(Libs.material)
-    implementation(Libs.constraintlayout)
     testImplementation(Libs.junit)
     androidTestImplementation(Libs.junitExt)
     androidTestImplementation(Libs.espresso)
@@ -37,7 +33,4 @@ dependencies {
     // Hilt
     implementation(Libs.hilt)
     kapt(Libs.hiltCompiler)
-
-    // Paging
-    implementation(Libs.paging)
 }

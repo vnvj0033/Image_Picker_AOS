@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yoosangyeop.imagepicker.feature.search.databinding.FragmentGalleryBinding
 import com.yoosangyeop.imagepicker.feature.search.ui.dialog.PinChImageDialogFragment
-import com.yoosangyeop.imagepicker.feature.search.ui.search.SearchViewModel
+import com.yoosangyeop.imagepicker.feature.search.ui.SearchViewModel
 import com.yoosangyeop.imagepicker.feature.search.util.ListItemDecoration
 import com.yoosangyeop.imagepicker.feature.search.util.launchWhenStart
 import com.yoosangyeop.imagepicker.model.search.SearchClip

@@ -17,11 +17,6 @@ dependencies {
 
     // room
     implementation(Libs.room)
-    annotationProcessor(Libs.roomCompiler)
-    kapt(Libs.roomCompiler)
 
-    // Retrofit
-    implementation(Libs.retrofit)
     implementation(Libs.gsonConverter)
-    implementation(Libs.okhttp)
 }

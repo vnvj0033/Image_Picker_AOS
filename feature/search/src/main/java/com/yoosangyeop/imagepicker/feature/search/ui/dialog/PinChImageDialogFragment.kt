@@ -16,6 +16,7 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
+import com.yoosangyeop.imagepicker.feature.search.R
 import com.yoosangyeop.imagepicker.feature.search.ui.view.PinchImageView
 
 internal class PinChImageDialogFragment : DialogFragment {
@@ -63,6 +64,7 @@ internal class PinChImageDialogFragment : DialogFragment {
         super.onViewCreated(view, savedInstanceState)
         Glide.with(pinchImageView)
             .load(url)
+            .placeholder(R.drawable.loading_gif)
             .override(SIZE_ORIGINAL)
             .into(pinchImageView)
 

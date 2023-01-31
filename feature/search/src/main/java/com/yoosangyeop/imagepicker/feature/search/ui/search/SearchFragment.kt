@@ -84,7 +84,6 @@ class SearchFragment : Fragment() {
             }
         }
 
-
         historyAdapter.clickItem = { query ->
             searchEditText.setText(query)
             searchEditText.isFocusable = true
@@ -137,12 +136,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun initFlow() = with(viewLifecycleOwner.lifecycleScope) {
-
-//        launchWhenStart {
-//            viewModel.query.collect { query ->
-//                android.util.Log.d("testsyyoo", "query : $query")
-//            }
-//        }
 
         launchWhenStart {
             viewModel.searchHistory.collect { history ->

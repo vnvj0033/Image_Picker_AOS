@@ -31,10 +31,9 @@ internal class SearchViewModel @Inject constructor(
     val favorite = _favorite.asStateFlow()
 
     private val _query = savedStateHandle.getSavableMutableStateFlow(KEY_NAME_QUERY, "")
-    val query = _query.asStateFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val searchItem = query.flatMapLatest {
+    val searchItem = _query.asStateFlow().flatMapLatest {
         searchRepository.loadSearchItem(it).flow
     }.cachedIn(viewModelScope)
 

@@ -39,6 +39,11 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
         notifyDataSetChanged()
     }
 
+    fun sortedBy(it: String) {
+        favorites.reversed()
+        notifyDataSetChanged()
+    }
+
     inner class FavoriteViewHolder(private val binding: ItemSearchBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(favorites: SearchItem) = with(binding){

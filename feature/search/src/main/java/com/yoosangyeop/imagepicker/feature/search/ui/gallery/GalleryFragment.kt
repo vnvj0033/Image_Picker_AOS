@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.yoosangyeop.imagepicker.feature.search.R
 import com.yoosangyeop.imagepicker.feature.search.databinding.FragmentGalleryBinding
 import com.yoosangyeop.imagepicker.feature.search.ui.dialog.PinChImageDialogFragment
 import com.yoosangyeop.imagepicker.feature.search.ui.SearchViewModel
@@ -46,6 +50,25 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.spinner_array_of_sort,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.sortSpinner.adapter = adapter
+        }
+
+        binding.sortSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+                parent.getItemAtPosition(pos).let {
+                    favoriteAdapter.sortedBy(it as String)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
 
         binding.itemRecyclerView.run {
             addItemDecoration(ListItemDecoration(FAVORITE_LIST_SPAN_COUNT, 8))

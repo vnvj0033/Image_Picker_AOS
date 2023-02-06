@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yoosangyeop.imagepicker.feature.search.R
 import com.yoosangyeop.imagepicker.feature.search.databinding.ItemSearchBinding
 import com.yoosangyeop.imagepicker.model.search.SearchItem
+import com.yoosangyeop.imagepicker.model.sortedByFavoriteDate
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     private var favorites: List<SearchItem> = listOf()
+    private var sortedType = "등록순"
+
     var clickRemove: ((SearchItem) -> Unit)? = null
     var clickItem: ((SearchItem) -> Unit)? = null
 
@@ -37,10 +40,19 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     fun updateFavorites(newFavorites: List<SearchItem>) {
         favorites = newFavorites
         notifyDataSetChanged()
+
+        sortedBy(sortedType)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun sortedBy(it: String) {
-        favorites.reversed()
+        sortedType = it
+
+        if (sortedType == "등록순") {
+            favorites = favorites.sortedByFavoriteDate()
+        } else if (sortedType == "최신순") {
+            favorites = favorites.sortedByFavoriteDate(isReverse = true)
+        }
         notifyDataSetChanged()
     }
 

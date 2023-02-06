@@ -17,7 +17,7 @@ class SearchRepositoryImpl @Inject constructor(
         get() = historyDataSource.loadHistory()
 
     override val favorite: List<SearchItem>
-        get() = favoriteDataSource.loadFavorites().sortedByFavoriteDate()
+        get() = favoriteDataSource.loadFavorites()
 
     override suspend fun addHistory(query: String) {
         val list = searchHistory + query

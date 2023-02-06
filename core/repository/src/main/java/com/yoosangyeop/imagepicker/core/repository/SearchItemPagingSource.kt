@@ -6,6 +6,7 @@ import com.yoosangyeop.imagepicker.core.data.api.SearchService
 import com.yoosangyeop.imagepicker.model.search.SearchClip
 import com.yoosangyeop.imagepicker.model.search.SearchImage
 import com.yoosangyeop.imagepicker.model.search.SearchItem
+import com.yoosangyeop.imagepicker.model.sortByNewest
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 

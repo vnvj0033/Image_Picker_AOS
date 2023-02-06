@@ -66,7 +66,6 @@ class GalleryFragment : Fragment() {
                     favoriteAdapter.sortedBy(it as String)
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
